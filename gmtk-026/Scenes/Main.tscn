@@ -6,8 +6,8 @@
 [ext_resource type="Script" uid="uid://bqenbxwtndjxk" path="res://Scripts/Look_at_camera.gd" id="4_pbw6q"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rgh2o"]
-sky_top_color = Color(0, 0, 1, 1)
-sky_horizon_color = Color(0.1203213, 0.1203213, 0.6203213, 1)
+sky_top_color = Color(0.56141526, 0.6186141, 0.864485, 1)
+sky_horizon_color = Color(0.90898, 0.9318489, 0.9982986, 1)
 ground_bottom_color = Color(0, 0, 1, 1)
 ground_horizon_color = Color(0.1203213, 0.1203213, 0.6203213, 1)
 
@@ -78,6 +78,7 @@ environment = SubResource("Environment_v1gob")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+light_color = Color(0.9999998, 0.95642406, 0.81600595, 1)
 shadow_enabled = true
 
 [node name="Main_character" type="CharacterBody3D" parent="."]
@@ -89,7 +90,7 @@ shape = SubResource("SphereShape3D_kln2b")
 debug_color = Color(0.9461712, 5.679429e-06, 0.5867409, 1)
 
 [node name="Main_Cam" parent="Main_character" instance=ExtResource("2_rgh2o")]
-transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 5, 5)
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 3, 3)
 
 [node name="Sprite_MC" type="AnimatedSprite3D" parent="Main_character"]
 transform = Transform3D(0.515, 0, 0, 0, 0.515, 0, 0, 0, 0.515, 0, 0, 0)
