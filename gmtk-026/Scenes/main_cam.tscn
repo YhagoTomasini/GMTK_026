@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://drnegny8nwbfn"]
+
+[node name="Main_Cam" type="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 0, 0, 0)
+size = 12.65

@@ -1,3 +1,50 @@
-[gd_scene format=3 uid="uid://bx1bxlt6t226e"]
+[gd_scene load_steps=9 format=3 uid="uid://bx1bxlt6t226e"]
+
+[ext_resource type="Script" uid="uid://ce0sp0rllv88i" path="res://Scenes/character_body_3d.gd" id="1_r150o"]
+[ext_resource type="Texture2D" uid="uid://cs1rh2230se1u" path="res://Assets/8.svg" id="2_idj7w"]
+[ext_resource type="PackedScene" uid="uid://drnegny8nwbfn" path="res://Scenes/main_cam.tscn" id="2_rgh2o"]
+[ext_resource type="Script" uid="uid://bqenbxwtndjxk" path="res://Scripts/Look_at_camera.gd" id="4_pbw6q"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_idj7w"]
+size = Vector3(8.275513, 1, 8.197327)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_kln2b"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kln2b"]
+atlas = ExtResource("2_idj7w")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rgh2o"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kln2b")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
 
 [node name="Node3D" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_idj7w")
+debug_color = Color(0, 0.6, 0.69803923, 1)
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+script = ExtResource("1_r150o")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("SphereShape3D_kln2b")
+debug_color = Color(0.9461712, 5.679429e-06, 0.5867409, 1)
+
+[node name="Main_Cam" parent="CharacterBody3D" instance=ExtResource("2_rgh2o")]
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 5, 5)
+
+[node name="Sprite_MC" type="AnimatedSprite3D" parent="CharacterBody3D"]
+sprite_frames = SubResource("SpriteFrames_rgh2o")
+animation = &"new_animation"
+script = ExtResource("4_pbw6q")
