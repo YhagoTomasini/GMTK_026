@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://cu7b3aajynyi1"]
+[gd_scene load_steps=9 format=3 uid="uid://cu7b3aajynyi1"]
 
-[ext_resource type="Script" path="res://Scripts/main.gd" id="1_5ukr8"]
+[ext_resource type="Script" uid="uid://c7ugqifkg1c4x" path="res://Scripts/main.gd" id="1_5ukr8"]
 [ext_resource type="PackedScene" uid="uid://d0tch211y343j" path="res://Prefabs/player.tscn" id="3_5a7ea"]
-[ext_resource type="PackedScene" path="res://Prefabs/slime_1.tscn" id="5_5v1tr"]
+[ext_resource type="PackedScene" uid="uid://drnegny8nwbfn" path="res://Prefabs/main_cam.tscn" id="4_8j60k"]
+[ext_resource type="PackedScene" uid="uid://cncvv1t8mmyyw" path="res://Prefabs/slime_1.tscn" id="5_5v1tr"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rgh2o"]
 sky_top_color = Color(0.56141526, 0.6186141, 0.864485, 1)
@@ -72,3 +73,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.037075)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6252732, 0, -4.0693426)
 
 [node name="player" parent="." instance=ExtResource("3_5a7ea")]
+
+[node name="Main_Cam" parent="." node_paths=PackedStringArray("player") instance=ExtResource("4_8j60k")]
+transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 0, 3, 3)
+player = NodePath("../player")

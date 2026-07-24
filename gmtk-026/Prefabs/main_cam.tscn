@@ -1,5 +1,8 @@
-[gd_scene load_steps=0 format=3 uid="uid://drnegny8nwbfn"]
+[gd_scene load_steps=2 format=3 uid="uid://drnegny8nwbfn"]
+
+[ext_resource type="Script" uid="uid://dgm530mlckaww" path="res://Scripts/main_cam.gd" id="1_r2upo"]
 
 [node name="Main_Cam" type="Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 0, 0, 0)
 size = 12.65
+script = ExtResource("1_r2upo")

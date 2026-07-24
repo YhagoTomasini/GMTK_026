@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://cncvv1t8mmyyw"]
 
-[ext_resource type="Script" path="res://Scripts/slime_1.gd" id="1_n3tpi"]
+[ext_resource type="Script" uid="uid://viy85eyns7p1" path="res://Scripts/slime_1.gd" id="1_n3tpi"]
 [ext_resource type="Texture2D" uid="uid://ccqu6e83o71ue" path="res://icon.svg" id="2_5ivo8"]
 [ext_resource type="Script" uid="uid://bqenbxwtndjxk" path="res://Scripts/Look_at_camera.gd" id="4_0lvod"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_n3tpi"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_op0xf"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fw6wf"]
 animations = [{
@@ -25,10 +25,13 @@ target_desired_distance = 2.0
 path_height_offset = 0.1
 avoidance_enabled = true
 
-[node name="collision" type="CollisionShape3D" parent="."]
-shape = SubResource("CapsuleShape3D_n3tpi")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.745, 0, 0, 0, 0.745, 0, 0, 0, 0.745, 0, 0, 0)
+shape = SubResource("SphereShape3D_op0xf")
+debug_color = Color(0, 0.6862745, 0.60784316, 1)
 
 [node name="animSprite" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
 sprite_frames = SubResource("SpriteFrames_fw6wf")
 frame_progress = 0.29382774
 script = ExtResource("4_0lvod")
