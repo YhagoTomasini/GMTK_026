@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://d0tch211y343j"]
 
 [ext_resource type="Script" uid="uid://ce0sp0rllv88i" path="res://Scripts/Main_character.gd" id="1_2nftw"]
-[ext_resource type="PackedScene" path="res://Prefabs/main_cam.tscn" id="2_knrd4"]
+[ext_resource type="PackedScene" uid="uid://drnegny8nwbfn" path="res://Prefabs/main_cam.tscn" id="2_knrd4"]
 [ext_resource type="Texture2D" uid="uid://cfkl6r3ab47hw" path="res://Assets/spritesheet.png" id="3_2nftw"]
 [ext_resource type="Script" uid="uid://bqenbxwtndjxk" path="res://Scripts/Look_at_camera.gd" id="4_juxdh"]
 
@@ -47,7 +47,7 @@ animations = [{
 script = ExtResource("1_2nftw")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, 0, 0)
+transform = Transform3D(0.745, 0, 0, 0, 0.745, 0, 0, 0, 0.745, 0, 0, 0)
 shape = SubResource("SphereShape3D_kln2b")
 debug_color = Color(0.9461712, 5.679429e-06, 0.5867409, 1)
 
