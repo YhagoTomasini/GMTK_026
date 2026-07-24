@@ -1,0 +1,63 @@
+[gd_scene load_steps=11 format=3 uid="uid://d0tch211y343j"]
+
+[ext_resource type="Script" uid="uid://ce0sp0rllv88i" path="res://Scripts/Main_character.gd" id="1_2nftw"]
+[ext_resource type="PackedScene" path="res://Prefabs/main_cam.tscn" id="2_knrd4"]
+[ext_resource type="Texture2D" uid="uid://cfkl6r3ab47hw" path="res://Assets/spritesheet.png" id="3_2nftw"]
+[ext_resource type="Script" uid="uid://bqenbxwtndjxk" path="res://Scripts/Look_at_camera.gd" id="4_juxdh"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_kln2b"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_knrd4"]
+atlas = ExtResource("3_2nftw")
+region = Rect2(1, 1, 143, 143)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hck1p"]
+atlas = ExtResource("3_2nftw")
+region = Rect2(145, 1, 143, 143)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_juxdh"]
+atlas = ExtResource("3_2nftw")
+region = Rect2(1, 145, 143, 143)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4qbli"]
+atlas = ExtResource("3_2nftw")
+region = Rect2(145, 145, 143, 143)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rgh2o"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_knrd4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hck1p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_juxdh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4qbli")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[node name="player" type="CharacterBody3D"]
+script = ExtResource("1_2nftw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, 0, 0)
+shape = SubResource("SphereShape3D_kln2b")
+debug_color = Color(0.9461712, 5.679429e-06, 0.5867409, 1)
+
+[node name="Main_Cam" parent="." instance=ExtResource("2_knrd4")]
+transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 0, 3, 3)
+
+[node name="Sprite_MC" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(0.515, 0, 0, 0, 0.515, 0, 0, 0, 0.515, 0, 0, 0)
+modulate = Color(0.50980395, 0.5254902, 1, 1)
+sprite_frames = SubResource("SpriteFrames_rgh2o")
+animation = &"new_animation"
+autoplay = "new_animation"
+script = ExtResource("4_juxdh")
