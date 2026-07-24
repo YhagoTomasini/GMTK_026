@@ -1,0 +1,45 @@
+[gd_scene load_steps=8 format=3 uid="uid://btmsm1glebh7c"]
+
+[ext_resource type="Script" uid="uid://viy85eyns7p1" path="res://Scripts/slime_1.gd" id="1_n3tpi"]
+[ext_resource type="Texture2D" uid="uid://ccqu6e83o71ue" path="res://icon.svg" id="2_5ivo8"]
+[ext_resource type="Texture2D" uid="uid://bb35ntpvx2ti5" path="res://Assets/player_idle.png" id="3_lx30c"]
+[ext_resource type="Script" uid="uid://bqenbxwtndjxk" path="res://Scripts/Look_at_camera.gd" id="4_0lvod"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_n3tpi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oh5jd"]
+atlas = ExtResource("3_lx30c")
+region = Rect2(0, 0, 192, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fw6wf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_5ivo8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oh5jd")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Slime_1" type="CharacterBody3D" groups=["enemies"]]
+script = ExtResource("1_n3tpi")
+
+[node name="nav_agent" type="NavigationAgent3D" parent="."]
+target_desired_distance = 2.0
+path_height_offset = 0.1
+avoidance_enabled = true
+
+[node name="collision" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_n3tpi")
+
+[node name="animSprite" type="AnimatedSprite3D" parent="."]
+sprite_frames = SubResource("SpriteFrames_fw6wf")
+frame_progress = 0.29382774
+script = ExtResource("4_0lvod")
+
+[connection signal="target_reached" from="nav_agent" to="." method="_on_nav_agent_target_reached"]
+[connection signal="velocity_computed" from="nav_agent" to="." method="_on_nav_agent_velocity_computed"]

@@ -24,6 +24,10 @@ MainCharacter="*res://Scripts/Main_character.gd"
 window/size/viewport_width=1280
 window/size/viewport_height=720
 
+[global_group]
+
+enemies=""
+
 [input]
 
 ui_left={
