@@ -1,8 +1,10 @@
 [gd_scene load_steps=16 format=3 uid="uid://bx1bxlt6t226e"]
 
 [ext_resource type="Script" uid="uid://ce0sp0rllv88i" path="res://Scripts/Main_character.gd" id="1_r150o"]
+[ext_resource type="Texture2D" uid="uid://bgh4ohuuimf4u" path="res://Assets/shadow_1.png" id="1_v1gob"]
+[ext_resource type="Script" uid="uid://g6lc4pc2s6uv" path="res://Scripts/shadow_1.gd" id="2_jw32o"]
 [ext_resource type="PackedScene" uid="uid://drnegny8nwbfn" path="res://Scenes/main_cam.tscn" id="2_rgh2o"]
-[ext_resource type="Texture2D" uid="uid://bb35ntpvx2ti5" path="res://Assets/player_idle.png" id="3_rgh2o"]
+[ext_resource type="Texture2D" uid="uid://rvmrffexuime" path="res://Assets/Mage_isle_spritesheet.png" id="3_rgh2o"]
 [ext_resource type="Script" uid="uid://bqenbxwtndjxk" path="res://Scripts/Look_at_camera.gd" id="4_pbw6q"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rgh2o"]
@@ -21,36 +23,25 @@ tonemap_mode = 2
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_kln2b"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_pbw6q"]
-atlas = ExtResource("3_rgh2o")
-region = Rect2(0, 0, 256, 256)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_v1gob"]
 atlas = ExtResource("3_rgh2o")
-region = Rect2(256, 0, 256, 256)
+region = Rect2(1, 1, 143, 143)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jw32o"]
 atlas = ExtResource("3_rgh2o")
-region = Rect2(512, 0, 256, 256)
+region = Rect2(145, 1, 143, 143)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_50glp"]
 atlas = ExtResource("3_rgh2o")
-region = Rect2(0, 256, 256, 256)
+region = Rect2(1, 145, 143, 143)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vy5pj"]
 atlas = ExtResource("3_rgh2o")
-region = Rect2(256, 256, 256, 256)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bmxlf"]
-atlas = ExtResource("3_rgh2o")
-region = Rect2(512, 256, 256, 256)
+region = Rect2(145, 145, 143, 143)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_rgh2o"]
 animations = [{
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pbw6q")
-}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_v1gob")
 }, {
@@ -62,13 +53,10 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_vy5pj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bmxlf")
 }],
 "loop": true,
 "name": &"new_animation",
-"speed": 5.0
+"speed": 6.0
 }]
 
 [node name="Node3D" type="Node3D"]
@@ -81,11 +69,18 @@ transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545
 light_color = Color(0.9999998, 0.95642406, 0.81600595, 1)
 shadow_enabled = true
 
+[node name="Shadow1" type="Sprite3D" parent="." node_paths=PackedStringArray("mCharacter")]
+transform = Transform3D(0.45, 0, 0, 0, -1.9670125e-08, 0.45, 0, -0.45, -1.9670125e-08, 0, -0.9, 1.376)
+modulate = Color(1, 1, 1, 0.2509804)
+texture = ExtResource("1_v1gob")
+script = ExtResource("2_jw32o")
+mCharacter = NodePath("../Main_character")
+
 [node name="Main_character" type="CharacterBody3D" parent="."]
 script = ExtResource("1_r150o")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Main_character"]
-transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, 0, 0)
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, 0, 0)
 shape = SubResource("SphereShape3D_kln2b")
 debug_color = Color(0.9461712, 5.679429e-06, 0.5867409, 1)
 
@@ -94,6 +89,7 @@ transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70
 
 [node name="Sprite_MC" type="AnimatedSprite3D" parent="Main_character"]
 transform = Transform3D(0.515, 0, 0, 0, 0.515, 0, 0, 0, 0.515, 0, 0, 0)
+modulate = Color(0.49019608, 0.49019608, 1, 1)
 sprite_frames = SubResource("SpriteFrames_rgh2o")
 animation = &"new_animation"
 autoplay = "new_animation"
@@ -106,23 +102,3 @@ use_collision = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5999999, -1.5, 0)
 use_collision = true
 size = Vector3(14, 1, 15)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.1, -0.5, 0)
-use_collision = true
-size = Vector3(1, 3, 14.2)
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.9, -0.5, 0)
-use_collision = true
-size = Vector3(1, 3, 14.2)
-
-[node name="CSGBox3D4" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.9000001, -0.5, 7)
-use_collision = true
-size = Vector3(1, 3, 14.2)
-
-[node name="CSGBox3D5" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.9000001, -0.5, -7)
-use_collision = true
-size = Vector3(1, 3, 14.2)

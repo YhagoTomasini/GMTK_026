@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bb35ntpvx2ti5"
-path.s3tc="res://.godot/imported/player_idle.png-70dfeedc6ccbf217e9445f4102ce3892.s3tc.ctex"
+uid="uid://rvmrffexuime"
+path.s3tc="res://.godot/imported/Mage_isle_spritesheet.png-bd4b6a04aad382aa76f2d222b44fc1fd.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/player_idle.png"
-dest_files=["res://.godot/imported/player_idle.png-70dfeedc6ccbf217e9445f4102ce3892.s3tc.ctex"]
+source_file="res://Assets/Mage_isle_spritesheet.png"
+dest_files=["res://.godot/imported/Mage_isle_spritesheet.png-bd4b6a04aad382aa76f2d222b44fc1fd.s3tc.ctex"]
 
 [params]
 
