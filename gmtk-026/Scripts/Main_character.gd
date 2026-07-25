@@ -179,7 +179,7 @@ func magic():
 	#await get_tree().create_timer(0.25).timeout
 
 func _on_fists_area_body_entered(body: Node3D) -> void:
-	body.takeDamage()
+	body.takeDamage(global_position)
 
 
 func _on_cool_down_punch_timeout() -> void:

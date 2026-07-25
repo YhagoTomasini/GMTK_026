@@ -17,5 +17,6 @@ func explosion_particles():
 	
 
 func _on_body_entered(body: Node3D) -> void:
+	body.takeDamage(global_position)
 	explosion_particles()
-	body.takeDamage()
+	queue_free()

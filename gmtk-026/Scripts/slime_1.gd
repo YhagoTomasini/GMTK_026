@@ -10,6 +10,9 @@ func _ready() -> void:
 	anim.frame = randi_range(0, 3)
 	
 func _physics_process(_delta: float) -> void:
+	if !following:
+		return
+		
 	var current_location = global_transform.origin
 	var next_location =  nav_agent.get_next_path_position()
 	var new_velocity = (next_location - current_location).normalized() * SPEED
@@ -30,18 +33,30 @@ func update_target_location(target_location):
 	if following:
 		nav_agent.target_position = target_location
 	
-func takeDamage() -> void:
-	collision_mask = 24
+func takeDamage(pPosi : Vector3) -> void:
 	following = false
+	collision_mask = 24
+	anim.modulate = Color(2.5, 0.0, 0.0, 1.0)
+	knockback(pPosi)
+		
 	anim.play("dying")
 	
 	await anim.animation_finished
 	queue_free()
+
+func knockback(pPosi : Vector3):
+	var knockbackD = (global_position - pPosi).normalized()
+	var tween = create_tween()
+	tween.tween_property(
+		self, "global_position", global_position + knockbackD *2, 0.2
+	).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	
 func _on_nav_agent_target_reached() -> void:
 	pass # Replace with function body.
 
-
 func _on_nav_agent_velocity_computed(safe_velocity: Vector3) -> void:
+	if !following:
+		return
+		
 	velocity = velocity.move_toward(safe_velocity, 0.25)
 	move_and_slide()
