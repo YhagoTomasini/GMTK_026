@@ -15,6 +15,11 @@ func _physics_process(_delta: float) -> void:
 	
 	nav_agent.set_velocity(new_velocity)
 	
+	if global_position.x < next_location.x:
+		anim.sorting_offset = -4
+	elif global_position.x > next_location.x:
+		anim.sorting_offset = 4
+	
 	if velocity.x < 0:
 		anim.flip_h = true
 	elif velocity.x > 0:

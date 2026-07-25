@@ -10,11 +10,23 @@ const JUMP_VELOCITY = 4.5
 @export var light : OmniLight3D
 #ataques melees
 @export var fists : Area3D
-@onready var sprite_3d: AnimatedSprite3D = $fists_area/Sprite3D
+@export var fistsAnim: AnimatedSprite3D
+var canPunch : bool = true
+var switch = 1
 #ataques magicos
 @onready var spells_marker: Marker3D = $spells_marker
 @onready var ray_fireball: RayCast3D = $spells_marker/ray_fireball
 @export var fireball_scene : PackedScene
+var canSpell : bool = true
+
+enum faces {
+	DOWN,
+	UP,
+	LEFT,
+	RIGHT
+}
+
+var facing := faces.DOWN
 
 func _physics_process(delta: float) -> void:
 	## A.
@@ -37,24 +49,28 @@ func _physics_process(delta: float) -> void:
 		fists.rotation.y = lerp_angle(fists.rotation.y, target, 10.0*delta)
 		
 		if velocity.z < 0:
+			facing = faces.UP
 			anim.play("idle_back")
 			lamp.sorting_offset = -2.0
 			light.position.z = lerp(light.position.z, -0.4, 1*delta)
 			
 		else:
+			facing = faces.DOWN
 			anim.play("idle_front")
 			lamp.sorting_offset = 2.0
 			light.position.z = lerp(light.position.z, 0.4, 1*delta)
 			
 		if velocity.x < 0:
+			facing = faces.LEFT
 			anim.flip_h = true
 			lamp.flip_h = true
-			light.position.x = lerp(light.position.x, 1.0, 1*delta)
+			light.position.x = lerp(light.position.x, 0.75, 1*delta)
 
 		elif velocity.x > 0:
+			facing = faces.RIGHT
 			anim.flip_h = false
 			lamp.flip_h = false
-			light.position.x = lerp(light.position.x, -1.0, 1*delta)
+			light.position.x = lerp(light.position.x, -0.75, 1*delta)
 		
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
@@ -83,11 +99,54 @@ func look_at_cursor():
 		$spells_marker.look_at(cursor_position_on_place,Vector3.UP,0)
 
 func punch():
-	sprite_3d.visible = true
-	fists.monitoring = true
-	await get_tree().create_timer(0.5).timeout
-	sprite_3d.visible = false
-	fists.monitoring = false
+	if canPunch: 
+		canPunch = false
+		
+		switch *= -1
+		fistsAnim.visible = true
+		fists.monitoring = true
+		
+		match facing:
+			faces.DOWN:
+				fistsAnim.sorting_offset = 3
+				if switch > 0:
+					fistsAnim.flip_h = true
+				else:
+					fistsAnim.flip_h = false
+				fistsAnim.play("punch_down")
+				
+			faces.UP:
+				fistsAnim.sorting_offset = -3
+				if switch > 0:
+					fistsAnim.flip_h = true
+				else:
+					fistsAnim.flip_h = false
+				fistsAnim.play("punch_up")
+				
+			faces.LEFT:
+				if switch > 0:
+					fistsAnim.sorting_offset = 3
+					fistsAnim.flip_h = true
+					fistsAnim.play("punch_down")
+				else:
+					fistsAnim.sorting_offset = -3
+					fistsAnim.flip_h = true
+					fistsAnim.play("punch_up")
+			faces.RIGHT:
+				if switch > 0:
+					fistsAnim.sorting_offset = 3
+					fistsAnim.flip_h = false
+					fistsAnim.play("punch_down")
+				else:
+					fistsAnim.sorting_offset = -3
+					fistsAnim.flip_h = false
+					fistsAnim.play("punch_up")
+				
+		await fistsAnim.animation_finished
+		fistsAnim.visible = false
+		fists.monitoring = false
+		
+		canPunch = true
 	
 func magic():
 	var fireball_instanciate = fireball_scene.instantiate()

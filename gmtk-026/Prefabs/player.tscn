@@ -1,11 +1,11 @@
-[gd_scene load_steps=21 format=3 uid="uid://d0tch211y343j"]
+[gd_scene load_steps=29 format=3 uid="uid://d0tch211y343j"]
 
 [ext_resource type="Script" uid="uid://ce0sp0rllv88i" path="res://Scripts/Main_character.gd" id="1_2nftw"]
 [ext_resource type="PackedScene" uid="uid://c0jdlywdd6iy5" path="res://Prefabs/Magic/fireball.tscn" id="2_hck1p"]
 [ext_resource type="Texture2D" uid="uid://cfkl6r3ab47hw" path="res://Assets/spritesheet.png" id="3_2nftw"]
 [ext_resource type="Texture2D" uid="uid://xcglmpeel7ft" path="res://Assets/Mage_back_spritesheet.png" id="3_juxdh"]
-[ext_resource type="Script" uid="uid://cs2c740wtcxfj" path="res://Scripts/fists_area.gd" id="4_2nftw"]
-[ext_resource type="Texture2D" uid="uid://ccqu6e83o71ue" path="res://icon.svg" id="7_juxdh"]
+[ext_resource type="Texture2D" uid="uid://b0smk08enr2hn" path="res://Assets/punch1_spritesheet.png" id="6_juxdh"]
+[ext_resource type="Texture2D" uid="uid://btjpsymu468cu" path="res://Assets/punch2_spritesheet.png" id="7_4qbli"]
 [ext_resource type="Texture2D" uid="uid://doolf7mv10ch2" path="res://Assets/lamp_1.png" id="7_kgmex"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_kln2b"]
@@ -83,25 +83,84 @@ animations = [{
 height = 0.9702606
 radius = 0.64208984
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_m62uw"]
+atlas = ExtResource("6_juxdh")
+region = Rect2(1, 1, 145, 145)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b30ri"]
+atlas = ExtResource("6_juxdh")
+region = Rect2(147, 1, 145, 145)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ms580"]
+atlas = ExtResource("6_juxdh")
+region = Rect2(1, 147, 145, 145)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q7l0e"]
+atlas = ExtResource("6_juxdh")
+region = Rect2(147, 147, 145, 145)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0fs2y"]
+atlas = ExtResource("7_4qbli")
+region = Rect2(1, 1, 145, 145)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wphcr"]
+atlas = ExtResource("7_4qbli")
+region = Rect2(147, 1, 145, 145)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_and0b"]
+atlas = ExtResource("7_4qbli")
+region = Rect2(1, 147, 145, 145)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_405c5"]
+atlas = ExtResource("7_4qbli")
+region = Rect2(147, 147, 145, 145)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_4qbli"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("7_juxdh")
+"texture": SubResource("AtlasTexture_m62uw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b30ri")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ms580")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q7l0e")
 }],
-"loop": true,
-"name": &"default",
-"speed": 5.0
+"loop": false,
+"name": &"punch_down",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0fs2y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wphcr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_and0b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_405c5")
+}],
+"loop": false,
+"name": &"punch_up",
+"speed": 12.0
 }]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_knrd4"]
 
-[node name="player" type="CharacterBody3D" node_paths=PackedStringArray("anim", "lamp", "light", "fists")]
+[node name="player" type="CharacterBody3D" node_paths=PackedStringArray("anim", "lamp", "light", "fists", "fistsAnim")]
 script = ExtResource("1_2nftw")
 anim = NodePath("Sprite_MC")
 lamp = NodePath("lamp")
 light = NodePath("OmniLight3D")
 fists = NodePath("fists_area")
+fistsAnim = NodePath("fists_area/Sprite3D")
 fireball_scene = ExtResource("2_hck1p")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -136,10 +195,8 @@ omni_range = 2.321
 omni_attenuation = 4.0
 
 [node name="fists_area" type="Area3D" parent="."]
-collision_layer = 0
 collision_mask = 4
 monitoring = false
-script = ExtResource("4_2nftw")
 
 [node name="left_fist" type="CollisionShape3D" parent="fists_area"]
 transform = Transform3D(0.745, 0, 0, 0, 0.0022884437, -0.7449965, 0, 0.7449965, 0.0022884437, -0.0068190694, -0.00022286957, 0.42744535)
@@ -152,6 +209,7 @@ visible = false
 billboard = 1
 shaded = true
 sprite_frames = SubResource("SpriteFrames_4qbli")
+animation = &"punch_up"
 
 [node name="spells_marker" type="Marker3D" parent="."]
 transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
