@@ -154,13 +154,15 @@ animations = [{
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_knrd4"]
 
-[node name="player" type="CharacterBody3D" node_paths=PackedStringArray("anim", "lamp", "light", "fists", "fistsAnim")]
+[node name="player" type="CharacterBody3D" node_paths=PackedStringArray("anim", "lamp", "light", "fists", "fistsAnim", "punchCooldown", "spellCooldown")]
 script = ExtResource("1_2nftw")
 anim = NodePath("Sprite_MC")
 lamp = NodePath("lamp")
 light = NodePath("OmniLight3D")
 fists = NodePath("fists_area")
 fistsAnim = NodePath("fists_area/Sprite3D")
+punchCooldown = NodePath("CoolDown_punch")
+spellCooldown = NodePath("CoolDown_spell")
 fireball_scene = ExtResource("2_hck1p")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -225,4 +227,12 @@ enabled = false
 target_position = Vector3(0, 0, -1)
 collision_mask = 4
 
+[node name="CoolDown_punch" type="Timer" parent="."]
+one_shot = true
+
+[node name="CoolDown_spell" type="Timer" parent="."]
+wait_time = 0.6
+one_shot = true
+
 [connection signal="body_entered" from="fists_area" to="." method="_on_fists_area_body_entered"]
+[connection signal="timeout" from="CoolDown_punch" to="." method="_on_cool_down_punch_timeout"]

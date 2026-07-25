@@ -1,6 +1,7 @@
 extends CharacterBody3D
 @export var anim : AnimatedSprite3D
 @onready var nav_agent: NavigationAgent3D = $nav_agent
+#@export var collision : CollisionShape3D
 
 var SPEED = 3.0
 var following : bool = true
@@ -30,6 +31,7 @@ func update_target_location(target_location):
 		nav_agent.target_position = target_location
 	
 func takeDamage() -> void:
+	collision_mask = 24
 	following = false
 	anim.play("dying")
 	

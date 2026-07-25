@@ -10,14 +10,15 @@ const JUMP_VELOCITY = 4.5
 @export var light : OmniLight3D
 #ataques melees
 @export var fists : Area3D
-@export var fistsAnim: AnimatedSprite3D
-var canPunch : bool = true
-var switch = 1
+@export var fistsAnim : AnimatedSprite3D
+@export var punchCooldown : Timer
+var switchPunch = 1
+var punchCount = 0
 #ataques magicos
 @onready var spells_marker: Marker3D = $spells_marker
 @onready var ray_fireball: RayCast3D = $spells_marker/ray_fireball
+@export var spellCooldown : Timer
 @export var fireball_scene : PackedScene
-var canSpell : bool = true
 
 enum faces {
 	DOWN,
@@ -25,8 +26,14 @@ enum faces {
 	LEFT,
 	RIGHT
 }
-
 var facing := faces.DOWN
+
+enum states {
+	IDLE,
+	PUNCHING,
+	CASTING
+}
+var state := states.IDLE
 
 func _physics_process(delta: float) -> void:
 	## A.
@@ -99,17 +106,21 @@ func look_at_cursor():
 		$spells_marker.look_at(cursor_position_on_place,Vector3.UP,0)
 
 func punch():
-	if canPunch: 
-		canPunch = false
+	if state == states.IDLE and punchCount < 2:
+		state = states.PUNCHING
 		
-		switch *= -1
+		punchCount += 1
+		switchPunch *= -1
+		
 		fistsAnim.visible = true
 		fists.monitoring = true
+		
+		punchCooldown.start()
 		
 		match facing:
 			faces.DOWN:
 				fistsAnim.sorting_offset = 3
-				if switch > 0:
+				if switchPunch > 0:
 					fistsAnim.flip_h = true
 				else:
 					fistsAnim.flip_h = false
@@ -117,14 +128,14 @@ func punch():
 				
 			faces.UP:
 				fistsAnim.sorting_offset = -3
-				if switch > 0:
+				if switchPunch > 0:
 					fistsAnim.flip_h = true
 				else:
 					fistsAnim.flip_h = false
 				fistsAnim.play("punch_up")
 				
 			faces.LEFT:
-				if switch > 0:
+				if switchPunch > 0:
 					fistsAnim.sorting_offset = 3
 					fistsAnim.flip_h = true
 					fistsAnim.play("punch_down")
@@ -133,7 +144,7 @@ func punch():
 					fistsAnim.flip_h = true
 					fistsAnim.play("punch_up")
 			faces.RIGHT:
-				if switch > 0:
+				if switchPunch > 0:
 					fistsAnim.sorting_offset = 3
 					fistsAnim.flip_h = false
 					fistsAnim.play("punch_down")
@@ -146,16 +157,31 @@ func punch():
 		fistsAnim.visible = false
 		fists.monitoring = false
 		
-		canPunch = true
+		if punchCount >= 2:
+			punchCooldown.wait_time = 1.2
+			punchCooldown.start()
+			
+		state = states.IDLE
 	
 func magic():
-	var fireball_instanciate = fireball_scene.instantiate()
-	fireball_instanciate.global_transform = $spells_marker.global_transform
-	add_sibling(fireball_instanciate)
-	#await get_tree().create_timer(0.25).timeout
+	if state == states.IDLE and spellCooldown.is_stopped():
+		state = states.CASTING
+		spellCooldown.start()
+		
+		var fireball_instanciate = fireball_scene.instantiate()
+		fireball_instanciate.global_transform = $spells_marker.global_transform
+		add_sibling(fireball_instanciate)
+		
+		state = states.IDLE
+		
 	#if ray_fireball.is_colliding():
 		#ray_fireball.get_collider().takeDamage()
 	#await get_tree().create_timer(0.25).timeout
 
 func _on_fists_area_body_entered(body: Node3D) -> void:
 	body.takeDamage()
+
+
+func _on_cool_down_punch_timeout() -> void:
+	punchCount = 0
+	punchCooldown.wait_time = 1
