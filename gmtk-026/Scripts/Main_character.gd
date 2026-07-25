@@ -5,9 +5,10 @@ const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
 @export var cam : Camera3D
+@export var anim : AnimatedSprite3D
 #ataques melees
 @export var fists : Area3D
-@onready var sprite_3d: Sprite3D = $fists_area/Sprite3D
+@onready var sprite_3d: AnimatedSprite3D = $fists_area/Sprite3D
 #ataques magicos
 @onready var spells_marker: Marker3D = $spells_marker
 @onready var ray_fireball: RayCast3D = $spells_marker/ray_fireball
@@ -32,6 +33,17 @@ func _physics_process(delta: float) -> void:
 		
 		var target = atan2(direction.x, direction.z)
 		fists.rotation.y = lerp_angle(fists.rotation.y, target, 10.0*delta)
+		
+		if velocity.z < 0:
+			anim.play("idle_back")
+		else:
+			anim.play("idle_front")
+			
+		if velocity.x > 0:
+			anim.flip_h = true
+		elif velocity.x < 0:
+			anim.flip_h = false
+
 		
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)

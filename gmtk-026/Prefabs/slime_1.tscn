@@ -1,8 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://cncvv1t8mmyyw"]
+[gd_scene load_steps=20 format=3 uid="uid://cncvv1t8mmyyw"]
 
 [ext_resource type="Script" uid="uid://viy85eyns7p1" path="res://Scripts/slime_1.gd" id="1_n3tpi"]
 [ext_resource type="Texture2D" uid="uid://duid0scrnkuxa" path="res://Assets/slime1_spritesheet.png" id="2_op0xf"]
+[ext_resource type="Texture2D" uid="uid://dus5sv5i7fkd5" path="res://Assets/slime_death_spritesheet.png" id="3_n3tpi"]
 [ext_resource type="Script" uid="uid://bqenbxwtndjxk" path="res://Scripts/Look_at_camera.gd" id="4_0lvod"]
+[ext_resource type="Texture2D" uid="uid://cnjsmjd1slrss" path="res://Assets/Animation_gmtk026.png" id="5_lx30c"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_op0xf"]
 
@@ -22,6 +24,38 @@ region = Rect2(1, 147, 145, 145)
 atlas = ExtResource("2_op0xf")
 region = Rect2(147, 147, 145, 145)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_fs0bl"]
+atlas = ExtResource("3_n3tpi")
+region = Rect2(1, 1, 145, 145)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oh5jd"]
+atlas = ExtResource("3_n3tpi")
+region = Rect2(147, 1, 145, 145)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fw6wf"]
+atlas = ExtResource("3_n3tpi")
+region = Rect2(293, 1, 145, 145)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xb54h"]
+atlas = ExtResource("3_n3tpi")
+region = Rect2(1, 147, 145, 145)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mgbsd"]
+atlas = ExtResource("3_n3tpi")
+region = Rect2(147, 147, 145, 145)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dqi8y"]
+atlas = ExtResource("3_n3tpi")
+region = Rect2(293, 147, 145, 145)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3jarl"]
+atlas = ExtResource("3_n3tpi")
+region = Rect2(1, 293, 145, 145)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hn4x4"]
+atlas = ExtResource("3_n3tpi")
+region = Rect2(147, 293, 145, 145)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_fw6wf"]
 animations = [{
 "frames": [{
@@ -40,11 +74,41 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fs0bl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oh5jd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fw6wf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xb54h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mgbsd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dqi8y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3jarl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hn4x4")
+}],
+"loop": false,
+"name": &"dying",
+"speed": 5.0
 }]
 
-[node name="Slime_1" type="CharacterBody3D" groups=["enemies"]]
+[node name="Slime_1" type="CharacterBody3D" node_paths=PackedStringArray("anim") groups=["enemies"]]
 collision_layer = 4
 script = ExtResource("1_n3tpi")
+anim = NodePath("animSprite")
 
 [node name="nav_agent" type="NavigationAgent3D" parent="."]
 path_height_offset = 0.1
@@ -59,9 +123,14 @@ debug_color = Color(0, 0.6862745, 0.60784316, 1)
 transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
 modulate = Color(0.7517824, 0.460258, 1, 1)
 sprite_frames = SubResource("SpriteFrames_fw6wf")
+animation = &"dying"
 autoplay = "default"
-frame_progress = 0.29382774
 script = ExtResource("4_0lvod")
+
+[node name="Shadow" type="Sprite3D" parent="."]
+transform = Transform3D(0.45, 0, 0, 0, -1.9670125e-08, -0.45, 0, 0.45, -1.9670125e-08, 0, -0.33, 0.15)
+modulate = Color(1, 1, 1, 0.5254902)
+texture = ExtResource("5_lx30c")
 
 [connection signal="target_reached" from="nav_agent" to="." method="_on_nav_agent_target_reached"]
 [connection signal="velocity_computed" from="nav_agent" to="." method="_on_nav_agent_velocity_computed"]
