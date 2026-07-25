@@ -67,19 +67,9 @@ func _process(_delta: float) -> void:
 
 func _input(event: InputEvent) -> void:		
 	if event.is_action_pressed("soco"):
-		sprite_3d.visible = true
-		fists.monitoring = true
-		await get_tree().create_timer(0.5).timeout
-		sprite_3d.visible = false
-		fists.monitoring = false
+		punch()
 	if event.is_action_pressed("magic"):
-		var fireball_instanciate = fireball_scene.instantiate()
-		fireball_instanciate.global_transform = $spells_marker.global_transform
-		add_sibling(fireball_instanciate)
-		await get_tree().create_timer(0.25).timeout
-		if ray_fireball.is_colliding():
-			ray_fireball.get_collider().takeDamage()
-		await get_tree().create_timer(0.25).timeout
+		magic()
 
 func look_at_cursor():
 	var target_plane_mouse = Plane(Vector3(0,1,0), position.y)
@@ -92,6 +82,21 @@ func look_at_cursor():
 	if cursor_position_on_place != null:
 		$spells_marker.look_at(cursor_position_on_place,Vector3.UP,0)
 
+func punch():
+	sprite_3d.visible = true
+	fists.monitoring = true
+	await get_tree().create_timer(0.5).timeout
+	sprite_3d.visible = false
+	fists.monitoring = false
+	
+func magic():
+	var fireball_instanciate = fireball_scene.instantiate()
+	fireball_instanciate.global_transform = $spells_marker.global_transform
+	add_sibling(fireball_instanciate)
+	#await get_tree().create_timer(0.25).timeout
+	#if ray_fireball.is_colliding():
+		#ray_fireball.get_collider().takeDamage()
+	#await get_tree().create_timer(0.25).timeout
 
 func _on_fists_area_body_entered(body: Node3D) -> void:
 	body.takeDamage()

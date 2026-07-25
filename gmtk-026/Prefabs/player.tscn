@@ -163,6 +163,7 @@ mesh = SubResource("CapsuleMesh_knrd4")
 
 [node name="ray_fireball" type="RayCast3D" parent="spells_marker"]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+enabled = false
 target_position = Vector3(0, 0, -1)
 collision_mask = 4
 

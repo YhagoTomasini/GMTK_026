@@ -1,10 +1,11 @@
-[gd_scene load_steps=18 format=3 uid="uid://c0jdlywdd6iy5"]
+[gd_scene load_steps=12 format=3 uid="uid://c0jdlywdd6iy5"]
 
 [ext_resource type="Script" uid="uid://h26kroqyeb2o" path="res://Scripts/fireball.gd" id="1_8uf5a"]
+[ext_resource type="PackedScene" uid="uid://cwtvihswvj3gd" path="res://Prefabs/Magic/explosion_fireball.tscn" id="2_t4ns8"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_8uf5a"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_t4ns8"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_8uf5a"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8uf5a"]
 transparency = 1
@@ -35,55 +36,23 @@ color_ramp = SubResource("GradientTexture1D_iqemn")
 turbulence_noise_scale = 1.05
 
 [sub_resource type="BoxMesh" id="BoxMesh_53wki"]
-size = Vector3(0.08, 0.08, 0.08)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t4ns8"]
-transparency = 1
-shading_mode = 0
-vertex_color_use_as_albedo = true
-
-[sub_resource type="Gradient" id="Gradient_iqemn"]
-offsets = PackedFloat32Array(0, 0.48958334, 1)
-colors = PackedColorArray(0.92156863, 0.7176471, 0, 1, 1, 0.19215687, 0.05490196, 1, 0, 0, 0, 0.5882353)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_r08yy"]
-gradient = SubResource("Gradient_iqemn")
-
-[sub_resource type="Curve" id="Curve_4wgfc"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_uuiso"]
-curve = SubResource("Curve_4wgfc")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_53wki"]
-emission_shape = 1
-emission_sphere_radius = 1.0
-direction = Vector3(0, 0, 0)
-spread = 180.0
-gravity = Vector3(0, 0, 0)
-radial_accel_min = -2.2351742e-06
-radial_accel_max = 16.669998
-scale_curve = SubResource("CurveTexture_uuiso")
-color_ramp = SubResource("GradientTexture1D_r08yy")
-
-[sub_resource type="BoxMesh" id="BoxMesh_f3bka"]
-size = Vector3(0.1, 0.1, 0.1)
+size = Vector3(0.3, 0.3, 0.3)
 
 [node name="fireball" type="Area3D"]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 collision_mask = 4
 script = ExtResource("1_8uf5a")
+speed = -10.0
+explosion_fire_scene = ExtResource("2_t4ns8")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(5.7320567e-16, 1.3113417e-08, 0.29999998, 0.3, -1.3113417e-08, 0, 1.3113417e-08, 0.3, -1.3113416e-08, 0, 0, 0)
+transform = Transform3D(1.9106855e-15, 4.371139e-08, 1, 1, -4.371139e-08, 0, 4.371139e-08, 1, -4.371139e-08, 0, -0.7105006, 0)
 visible = false
 cast_shadow = 0
 mesh = SubResource("CapsuleMesh_8uf5a")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(-1.3113417e-08, -0.3, 0, 0.3, -1.3113417e-08, 0, 0, 0, 0.3, 0, 0, 0)
-shape = SubResource("CapsuleShape3D_t4ns8")
+shape = SubResource("BoxShape3D_8uf5a")
 
 [node name="FrenteDoobjeto" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
@@ -91,25 +60,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 [node name="fire_trial" type="GPUParticles3D" parent="."]
 material_override = SubResource("StandardMaterial3D_8uf5a")
 amount = 40
-lifetime = 0.28
+lifetime = 0.6
 speed_scale = 5.0
 process_material = SubResource("ParticleProcessMaterial_uuiso")
 draw_pass_1 = SubResource("BoxMesh_53wki")
 
-[node name="explosion" type="GPUParticles3D" parent="."]
-material_override = SubResource("StandardMaterial3D_t4ns8")
-emitting = false
-amount = 12
-lifetime = 0.5
-one_shot = true
-speed_scale = 0.5
-explosiveness = 0.8
-process_material = SubResource("ParticleProcessMaterial_53wki")
-draw_pass_1 = SubResource("BoxMesh_f3bka")
-
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, -0.162705)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.05724567)
 light_color = Color(1, 0.49019608, 0.15686275, 1)
+light_energy = 0.376
+light_specular = 0.33
 shadow_enabled = true
+omni_range = 1.0
+omni_attenuation = 0.775
 
-[connection signal="finished" from="fire_trial" to="." method="_on_fire_trial_finished"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
