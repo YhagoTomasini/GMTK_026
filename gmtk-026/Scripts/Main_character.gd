@@ -43,5 +43,4 @@ func _input(event: InputEvent) -> void:
 
 
 func _on_fists_area_body_entered(body: Node3D) -> void:
-	if body.is_in_group("enemies"):
-		body.queue_free()
+	body.takeDamage()

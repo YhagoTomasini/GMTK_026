@@ -14,6 +14,9 @@ func _physics_process(_delta: float) -> void:
 func update_target_location(target_location):
 	nav_agent.target_position = target_location
 	
+func takeDamage() -> void:
+	queue_free()
+	
 func _on_nav_agent_target_reached() -> void:
 	pass # Replace with function body.
 
