@@ -107,4 +107,9 @@ explosiveness = 0.8
 process_material = SubResource("ParticleProcessMaterial_53wki")
 draw_pass_1 = SubResource("BoxMesh_f3bka")
 
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, -0.162705)
+light_color = Color(1, 0.49019608, 0.15686275, 1)
+shadow_enabled = true
+
 [connection signal="finished" from="fire_trial" to="." method="_on_fire_trial_finished"]

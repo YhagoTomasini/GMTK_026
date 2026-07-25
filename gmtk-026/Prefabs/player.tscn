@@ -5,8 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://cfkl6r3ab47hw" path="res://Assets/spritesheet.png" id="3_2nftw"]
 [ext_resource type="Texture2D" uid="uid://xcglmpeel7ft" path="res://Assets/Mage_back_spritesheet.png" id="3_juxdh"]
 [ext_resource type="Script" uid="uid://cs2c740wtcxfj" path="res://Scripts/fists_area.gd" id="4_2nftw"]
-[ext_resource type="Script" uid="uid://bqenbxwtndjxk" path="res://Scripts/Look_at_camera.gd" id="4_juxdh"]
 [ext_resource type="Texture2D" uid="uid://ccqu6e83o71ue" path="res://icon.svg" id="7_juxdh"]
+[ext_resource type="Texture2D" uid="uid://doolf7mv10ch2" path="res://Assets/lamp_1.png" id="7_kgmex"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_kln2b"]
 
@@ -96,9 +96,11 @@ animations = [{
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_knrd4"]
 
-[node name="player" type="CharacterBody3D" node_paths=PackedStringArray("anim", "fists")]
+[node name="player" type="CharacterBody3D" node_paths=PackedStringArray("anim", "lamp", "light", "fists")]
 script = ExtResource("1_2nftw")
 anim = NodePath("Sprite_MC")
+lamp = NodePath("lamp")
+light = NodePath("OmniLight3D")
 fists = NodePath("fists_area")
 fireball_scene = ExtResource("2_hck1p")
 
@@ -108,12 +110,30 @@ shape = SubResource("SphereShape3D_kln2b")
 debug_color = Color(0.9461712, 5.679429e-06, 0.5867409, 1)
 
 [node name="Sprite_MC" type="AnimatedSprite3D" parent="."]
-transform = Transform3D(0.515, 0, 0, 0, 0.515, 0, 0, 0, 0.515, 0, 0, 0)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+gi_mode = 2
 modulate = Color(0.50980395, 0.5254902, 1, 1)
+billboard = 1
+shaded = true
 sprite_frames = SubResource("SpriteFrames_rgh2o")
 animation = &"idle_front"
 autoplay = "idle_front"
-script = ExtResource("4_juxdh")
+
+[node name="lamp" type="Sprite3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0.05)
+sorting_offset = 2.0
+gi_mode = 2
+billboard = 1
+shaded = true
+texture = ExtResource("7_kgmex")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0.4)
+light_color = Color(1, 0.49019608, 0.15686275, 1)
+light_energy = 0.8
+shadow_enabled = true
+omni_range = 2.321
+omni_attenuation = 4.0
 
 [node name="fists_area" type="Area3D" parent="."]
 collision_layer = 0
@@ -129,8 +149,9 @@ debug_color = Color(0.9461712, 5.679429e-06, 0.5867409, 1)
 [node name="Sprite3D" type="AnimatedSprite3D" parent="fists_area"]
 transform = Transform3D(0.4746775, 0, 0, 0, 0.47759956, 0, 0, 0, 1, -0.036453903, 0, 0.47560674)
 visible = false
+billboard = 1
+shaded = true
 sprite_frames = SubResource("SpriteFrames_4qbli")
-script = ExtResource("4_juxdh")
 
 [node name="spells_marker" type="Marker3D" parent="."]
 transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)

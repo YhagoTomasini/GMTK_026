@@ -1,8 +1,6 @@
-extends AnimatedSprite3D
+extends Node3D
 
 func _ready() -> void:
-	frame = randi_range(0, 3)
-	
 	if get_parent().name == "player":
 		var cam := get_viewport().get_camera_3d()
 		if cam:
@@ -12,8 +10,3 @@ func _ready() -> void:
 		await get_tree().create_timer(0.1).timeout
 		rotation = Globals.playerRotation
 		
-func _process(_delta: float) -> void:
-	if get_parent().name == "fists_area":
-		var cam := get_viewport().get_camera_3d()
-		if cam:
-			look_at(cam.global_position, Vector3.UP)

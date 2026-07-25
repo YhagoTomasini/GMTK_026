@@ -5,6 +5,9 @@ extends CharacterBody3D
 var SPEED = 3.0
 var following : bool = true
 
+func _ready() -> void:
+	anim.frame = randi_range(0, 3)
+	
 func _physics_process(_delta: float) -> void:
 	var current_location = global_transform.origin
 	var next_location =  nav_agent.get_next_path_position()

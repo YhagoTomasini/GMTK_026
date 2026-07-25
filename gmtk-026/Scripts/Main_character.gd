@@ -6,6 +6,8 @@ const JUMP_VELOCITY = 4.5
 
 @export var cam : Camera3D
 @export var anim : AnimatedSprite3D
+@export var lamp : Sprite3D
+@export var light : OmniLight3D
 #ataques melees
 @export var fists : Area3D
 @onready var sprite_3d: AnimatedSprite3D = $fists_area/Sprite3D
@@ -36,14 +38,23 @@ func _physics_process(delta: float) -> void:
 		
 		if velocity.z < 0:
 			anim.play("idle_back")
+			lamp.sorting_offset = -2.0
+			light.position.z = lerp(light.position.z, -0.4, 1*delta)
+			
 		else:
 			anim.play("idle_front")
+			lamp.sorting_offset = 2.0
+			light.position.z = lerp(light.position.z, 0.4, 1*delta)
 			
-		if velocity.x > 0:
+		if velocity.x < 0:
 			anim.flip_h = true
-		elif velocity.x < 0:
-			anim.flip_h = false
+			lamp.flip_h = true
+			light.position.x = lerp(light.position.x, 1.0, 1*delta)
 
+		elif velocity.x > 0:
+			anim.flip_h = false
+			lamp.flip_h = false
+			light.position.x = lerp(light.position.x, -1.0, 1*delta)
 		
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
@@ -54,7 +65,7 @@ func _physics_process(delta: float) -> void:
 func _process(_delta: float) -> void:
 	look_at_cursor()
 
-func _input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:		
 	if event.is_action_pressed("soco"):
 		sprite_3d.visible = true
 		fists.monitoring = true
