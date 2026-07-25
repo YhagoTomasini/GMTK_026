@@ -10,7 +10,7 @@ script = ExtResource("1_rn8xn")
 arraysDeEnemys = Array[PackedScene]([ExtResource("2_e28x4")])
 
 [node name="Marker3D" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Marker3D"]
 mesh = SubResource("SphereMesh_e28x4")
