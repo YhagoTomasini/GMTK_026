@@ -78,7 +78,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.037075)
 [node name="Slime_2" parent="NavigationRegion3D" instance=ExtResource("5_5v1tr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6252732, 0, -4.0693426)
 
-[node name="player" parent="." instance=ExtResource("3_5a7ea")]
+[node name="player" parent="." node_paths=PackedStringArray("cam") instance=ExtResource("3_5a7ea")]
+cam = NodePath("../Main_Cam")
 
 [node name="Shadow" type="Sprite3D" parent="." node_paths=PackedStringArray("player")]
 transform = Transform3D(0.45, 0, 0, 0, -1.9670125e-08, -0.45, 0, 0.45, -1.9670125e-08, 0, -0.9, 0)

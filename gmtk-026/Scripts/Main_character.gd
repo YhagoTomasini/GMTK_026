@@ -3,11 +3,13 @@ extends CharacterBody3D
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
-var direction 
 
+@export var cam : Camera3D
 @export var fists : Area3D
 @onready var sprite_3d: Sprite3D = $fists_area/Sprite3D
-@export var fireball_scene : PackedScene
+@onready var spells_marker: Marker3D = $spells_marker
+@onready var ray_fireball: RayCast3D = $spells_marker/ray_fireball
+
 
 func _physics_process(delta: float) -> void:
 	## A.
@@ -20,7 +22,7 @@ func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	direction = Vector3(input_dir.x, 0, input_dir.y).normalized()
+	var direction  := Vector3(input_dir.x, 0, input_dir.y).normalized()
 	
 	if direction:
 		velocity.x = direction.x * SPEED
@@ -35,7 +37,9 @@ func _physics_process(delta: float) -> void:
 		
 	move_and_slide()
 	
-	
+func _process(_delta: float) -> void:
+	look_at_cursor()
+
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("soco"):
 		sprite_3d.visible = true
@@ -43,15 +47,23 @@ func _input(event: InputEvent) -> void:
 		await get_tree().create_timer(0.5).timeout
 		sprite_3d.visible = false
 		fists.monitoring = false
-		
 	if event.is_action_pressed("magic"):
-		casting()
+		await get_tree().create_timer(0.25).timeout
+		if ray_fireball.is_colliding():
+			ray_fireball.get_collider().takeDamage()
+		await get_tree().create_timer(0.25).timeout
 
-func casting():
-	var fireball_instance = fireball_scene.instantiate()
-	get_tree().current_scene.add_child(fireball_instance)
-	fireball_instance.global_position = global_position
+func look_at_cursor():
+	var target_plane_mouse = Plane(Vector3(0,1,0), position.y)
+	var ray_leght = 2000
+	var mouse_position = get_viewport().get_mouse_position()
+	var from = cam.project_ray_origin(mouse_position)
+	var to = from + cam.project_ray_normal(mouse_position) * ray_leght
+	var cursor_position_on_place = target_plane_mouse.intersects_ray(from, to)
 	
+	if cursor_position_on_place != null:
+		$spells_marker.look_at(cursor_position_on_place,Vector3.UP,0)
+
 
 func _on_fists_area_body_entered(body: Node3D) -> void:
 	body.takeDamage()
