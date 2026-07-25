@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://b46rsxkdcyehr"]
+
+[ext_resource type="Script" uid="uid://ccdhvauxtet5o" path="res://Scripts/pivo_spawner.gd" id="1_rn8xn"]
+[ext_resource type="PackedScene" uid="uid://cncvv1t8mmyyw" path="res://Prefabs/slime_1.tscn" id="2_e28x4"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_e28x4"]
+
+[node name="pivo_spawner" type="Node3D"]
+script = ExtResource("1_rn8xn")
+arraysDeEnemys = Array[PackedScene]([ExtResource("2_e28x4")])
+
+[node name="Marker3D" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Marker3D"]
+mesh = SubResource("SphereMesh_e28x4")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

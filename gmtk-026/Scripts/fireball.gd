@@ -14,6 +14,7 @@ func explosion_particles():
 	var explosion_fire_instanciate = explosion_fire_scene.instantiate()
 	explosion_fire_instanciate.global_transform = global_transform
 	add_sibling(explosion_fire_instanciate)
+	
 
 func _on_body_entered(body: Node3D) -> void:
 	explosion_particles()
