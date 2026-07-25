@@ -5,6 +5,7 @@ const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
 @export var fists : Area3D
+@onready var sprite_3d: Sprite3D = $fists_area/Sprite3D
 
 func _physics_process(delta: float) -> void:
 	## A.
@@ -30,3 +31,17 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 		
 	move_and_slide()
+	
+	
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("soco"):
+		sprite_3d.visible = false
+		fists.monitoring = true
+		await get_tree().create_timer(0.5).timeout
+		sprite_3d.visible = true
+		fists.monitoring = false
+
+
+func _on_fists_area_body_entered(body: Node3D) -> void:
+	if body.is_in_group("enemies"):
+		body.queue_free()
