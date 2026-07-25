@@ -5,11 +5,13 @@ const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
 @export var cam : Camera3D
+#ataques melees
 @export var fists : Area3D
 @onready var sprite_3d: Sprite3D = $fists_area/Sprite3D
+#ataques magicos
 @onready var spells_marker: Marker3D = $spells_marker
 @onready var ray_fireball: RayCast3D = $spells_marker/ray_fireball
-
+@export var fireball_scene : PackedScene
 
 func _physics_process(delta: float) -> void:
 	## A.
@@ -48,6 +50,9 @@ func _input(event: InputEvent) -> void:
 		sprite_3d.visible = false
 		fists.monitoring = false
 	if event.is_action_pressed("magic"):
+		var fireball_instanciate = fireball_scene.instantiate()
+		fireball_instanciate.global_transform = $spells_marker.global_transform
+		add_sibling(fireball_instanciate)
 		await get_tree().create_timer(0.25).timeout
 		if ray_fireball.is_colliding():
 			ray_fireball.get_collider().takeDamage()
