@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://d0tch211y343j"]
+[gd_scene load_steps=11 format=3 uid="uid://d0tch211y343j"]
 
 [ext_resource type="Script" uid="uid://ce0sp0rllv88i" path="res://Scripts/Main_character.gd" id="1_2nftw"]
 [ext_resource type="Texture2D" uid="uid://cfkl6r3ab47hw" path="res://Assets/spritesheet.png" id="3_2nftw"]
+[ext_resource type="Script" uid="uid://cs2c740wtcxfj" path="res://Scripts/fists_area.gd" id="4_2nftw"]
 [ext_resource type="Script" uid="uid://bqenbxwtndjxk" path="res://Scripts/Look_at_camera.gd" id="4_juxdh"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_kln2b"]
@@ -42,8 +43,9 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="player" type="CharacterBody3D"]
+[node name="player" type="CharacterBody3D" node_paths=PackedStringArray("fists")]
 script = ExtResource("1_2nftw")
+fists = NodePath("fists_area")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.745, 0, 0, 0, 0.745, 0, 0, 0, 0.745, 0, 0, 0)
@@ -57,3 +59,16 @@ sprite_frames = SubResource("SpriteFrames_rgh2o")
 animation = &"new_animation"
 autoplay = "new_animation"
 script = ExtResource("4_juxdh")
+
+[node name="fists_area" type="Area3D" parent="."]
+script = ExtResource("4_2nftw")
+
+[node name="left_fist" type="CollisionShape3D" parent="fists_area"]
+transform = Transform3D(0.745, 0, 0, 0, 0.745, 0, 0, 0, 0.745, 0.5, 0, 0.5)
+shape = SubResource("SphereShape3D_kln2b")
+debug_color = Color(0.9461712, 5.679429e-06, 0.5867409, 1)
+
+[node name="right_fist" type="CollisionShape3D" parent="fists_area"]
+transform = Transform3D(0.745, 0, 0, 0, 0.745, 0, 0, 0, 0.745, -0.5, 0, 0.5)
+shape = SubResource("SphereShape3D_kln2b")
+debug_color = Color(0.9461712, 5.679429e-06, 0.5867409, 1)
