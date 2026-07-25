@@ -1,16 +1,41 @@
-[gd_scene load_steps=6 format=3 uid="uid://cncvv1t8mmyyw"]
+[gd_scene load_steps=10 format=3 uid="uid://cncvv1t8mmyyw"]
 
 [ext_resource type="Script" uid="uid://viy85eyns7p1" path="res://Scripts/slime_1.gd" id="1_n3tpi"]
-[ext_resource type="Texture2D" uid="uid://ccqu6e83o71ue" path="res://icon.svg" id="2_5ivo8"]
+[ext_resource type="Texture2D" uid="uid://duid0scrnkuxa" path="res://Assets/slime1_spritesheet.png" id="2_op0xf"]
 [ext_resource type="Script" uid="uid://bqenbxwtndjxk" path="res://Scripts/Look_at_camera.gd" id="4_0lvod"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_op0xf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n3tpi"]
+atlas = ExtResource("2_op0xf")
+region = Rect2(1, 1, 145, 145)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ivo8"]
+atlas = ExtResource("2_op0xf")
+region = Rect2(147, 1, 145, 145)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lx30c"]
+atlas = ExtResource("2_op0xf")
+region = Rect2(1, 147, 145, 145)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0lvod"]
+atlas = ExtResource("2_op0xf")
+region = Rect2(147, 147, 145, 145)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fw6wf"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_5ivo8")
+"texture": SubResource("AtlasTexture_n3tpi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ivo8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lx30c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0lvod")
 }],
 "loop": true,
 "name": &"default",
@@ -18,6 +43,7 @@ animations = [{
 }]
 
 [node name="Slime_1" type="CharacterBody3D" groups=["enemies"]]
+collision_layer = 4
 script = ExtResource("1_n3tpi")
 
 [node name="nav_agent" type="NavigationAgent3D" parent="."]
@@ -32,7 +58,9 @@ debug_color = Color(0, 0.6862745, 0.60784316, 1)
 
 [node name="animSprite" type="AnimatedSprite3D" parent="."]
 transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
+modulate = Color(0.7517824, 0.460258, 1, 1)
 sprite_frames = SubResource("SpriteFrames_fw6wf")
+autoplay = "default"
 frame_progress = 0.29382774
 script = ExtResource("4_0lvod")
 

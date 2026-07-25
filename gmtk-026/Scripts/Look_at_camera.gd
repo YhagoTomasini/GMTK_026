@@ -1,6 +1,8 @@
 extends AnimatedSprite3D
 
 func _ready() -> void:
+	frame = randi_range(0, 3)
+	
 	if get_parent().name == "player":
 		var cam := get_viewport().get_camera_3d()
 		if cam:
