@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://c0jdlywdd6iy5"]
+
+[ext_resource type="Script" uid="uid://h26kroqyeb2o" path="res://Scripts/fireball.gd" id="1_8uf5a"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_rxm5v"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_8uf5a"]
+
+[node name="fireball" type="Area3D"]
+script = ExtResource("1_8uf5a")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_rxm5v")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_8uf5a")

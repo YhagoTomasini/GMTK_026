@@ -3,9 +3,11 @@ extends CharacterBody3D
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
+var direction 
 
 @export var fists : Area3D
 @onready var sprite_3d: Sprite3D = $fists_area/Sprite3D
+@export var fireball_scene : PackedScene
 
 func _physics_process(delta: float) -> void:
 	## A.
@@ -18,7 +20,8 @@ func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	var direction := Vector3(input_dir.x, 0, input_dir.y).normalized()
+	direction = Vector3(input_dir.x, 0, input_dir.y).normalized()
+	
 	if direction:
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
@@ -40,7 +43,15 @@ func _input(event: InputEvent) -> void:
 		await get_tree().create_timer(0.5).timeout
 		sprite_3d.visible = false
 		fists.monitoring = false
+		
+	if event.is_action_pressed("magic"):
+		casting()
 
+func casting():
+	var fireball_instance = fireball_scene.instantiate()
+	get_tree().current_scene.add_child(fireball_instance)
+	fireball_instance.global_position = global_position
+	
 
 func _on_fists_area_body_entered(body: Node3D) -> void:
 	body.takeDamage()
