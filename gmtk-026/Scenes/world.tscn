@@ -8,20 +8,22 @@
 [ext_resource type="Script" uid="uid://cwxh86jtpvy6y" path="res://Scripts/shadow.gd" id="6_o06y3"]
 [ext_resource type="PackedScene" uid="uid://b46rsxkdcyehr" path="res://Prefabs/pivo_spawner.tscn" id="7_o06y3"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rgh2o"]
-sky_top_color = Color(0.56141526, 0.6186141, 0.864485, 1)
-sky_horizon_color = Color(0.90898, 0.9318489, 0.9982986, 1)
-ground_bottom_color = Color(0, 0, 1, 1)
-ground_horizon_color = Color(0.1203213, 0.1203213, 0.6203213, 1)
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_o06y3"]
 
 [sub_resource type="Sky" id="Sky_pbw6q"]
-sky_material = SubResource("ProceduralSkyMaterial_rgh2o")
+sky_material = SubResource("PanoramaSkyMaterial_o06y3")
 
 [sub_resource type="Environment" id="Environment_v1gob"]
 background_mode = 1
 background_color = Color(0.1882353, 0.21568628, 0.61960787, 1)
 sky = SubResource("Sky_pbw6q")
+ambient_light_source = 3
 tonemap_mode = 2
+fog_enabled = true
+fog_light_color = Color(0.12947392, 0.09052519, 0.18873432, 1)
+fog_light_energy = 0.5
+fog_density = 0.04
+fog_sky_affect = 0.85
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_pbw6q"]
 vertices = PackedVector3Array(-11.475168, -0.79999995, -7, -11.475168, -0.79999995, 11, 11.524832, -0.79999995, 11, 11.524832, -0.79999995, -7)
@@ -59,7 +61,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.062215805, -1.5, 1.9603882
 material_override = SubResource("StandardMaterial3D_5ukr8")
 gi_mode = 2
 use_collision = true
-size = Vector3(23.893005, 1, 18.920776)
+size = Vector3(20, 1, 20)
 
 [node name="Slime_1" parent="NavigationRegion3D" instance=ExtResource("5_5v1tr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.037075)

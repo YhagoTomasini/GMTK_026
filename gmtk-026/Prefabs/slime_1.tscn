@@ -124,14 +124,21 @@ modulate = Color(0.73018277, 0.68409, 1, 1)
 billboard = 1
 shaded = true
 sprite_frames = SubResource("SpriteFrames_fw6wf")
-animation = &"dying"
 autoplay = "default"
+frame_progress = 0.6352932
 
 [node name="Shadow" type="Sprite3D" parent="."]
 transform = Transform3D(0.45, 0, 0, 0, -1.9670125e-08, -0.45, 0, 0.45, -1.9670125e-08, 0, -0.33, 0.15)
 modulate = Color(1, 1, 1, 0.5019608)
 shaded = true
 texture = ExtResource("5_lx30c")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.23709154, 0)
+light_color = Color(0.8479191, 0.6463661, 1, 1)
+light_energy = 0.55
+omni_range = 0.45
+omni_attenuation = 0.5
 
 [connection signal="target_reached" from="nav_agent" to="." method="_on_nav_agent_target_reached"]
 [connection signal="velocity_computed" from="nav_agent" to="." method="_on_nav_agent_velocity_computed"]
