@@ -47,7 +47,6 @@ collision_layer = 4
 script = ExtResource("1_n3tpi")
 
 [node name="nav_agent" type="NavigationAgent3D" parent="."]
-target_desired_distance = 2.0
 path_height_offset = 0.1
 avoidance_enabled = true
 

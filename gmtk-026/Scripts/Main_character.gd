@@ -35,10 +35,10 @@ func _physics_process(delta: float) -> void:
 	
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("soco"):
-		sprite_3d.visible = false
+		sprite_3d.visible = true
 		fists.monitoring = true
 		await get_tree().create_timer(0.5).timeout
-		sprite_3d.visible = true
+		sprite_3d.visible = false
 		fists.monitoring = false
 
 
