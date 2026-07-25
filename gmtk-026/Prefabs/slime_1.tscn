@@ -104,11 +104,10 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Slime_1" type="CharacterBody3D" node_paths=PackedStringArray("anim", "collision") groups=["enemies"]]
+[node name="Slime_1" type="CharacterBody3D" node_paths=PackedStringArray("anim") groups=["enemies"]]
 collision_layer = 4
 script = ExtResource("1_n3tpi")
 anim = NodePath("animSprite")
-collision = NodePath("CollisionShape3D")
 
 [node name="nav_agent" type="NavigationAgent3D" parent="."]
 path_height_offset = 0.1

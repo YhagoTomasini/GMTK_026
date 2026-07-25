@@ -42,6 +42,7 @@ func takeDamage(pPosi : Vector3) -> void:
 	anim.play("dying")
 	
 	await anim.animation_finished
+	Globals.temp_left += 10
 	queue_free()
 
 func knockback(pPosi : Vector3):
