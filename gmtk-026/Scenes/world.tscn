@@ -73,10 +73,10 @@ use_collision = true
 size = Vector3(140, 1, 120)
 
 [node name="Slime_1" parent="NavigationRegion3D" instance=ExtResource("5_5v1tr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.037075)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.5637007)
 
 [node name="Slime_2" parent="NavigationRegion3D" instance=ExtResource("5_5v1tr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6252732, 0, -4.0693426)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6252732, 0, -6.5959682)
 
 [node name="pivo_spawner" parent="NavigationRegion3D" instance=ExtResource("7_o06y3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7357273, 2, -17.708206)
@@ -93,7 +93,7 @@ script = ExtResource("6_o06y3")
 player = NodePath("../player")
 
 [node name="Parede" type="CSGCombiner3D" parent="."]
-transform = Transform3D(0.5120075, 0, 0, 0, 0.5721017, 0, 0, 0, 0.5896593, 0.033549786, -0.7877426, 0)
+transform = Transform3D(1, 0, 0, 0, 2.665073, 0, 0, 0, 1.152, 0.033549786, -0.7877426, 0)
 material_override = SubResource("StandardMaterial3D_0fj1v")
 use_collision = true
 collision_layer = 2

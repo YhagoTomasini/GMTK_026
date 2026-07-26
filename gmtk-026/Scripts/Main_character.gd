@@ -1,6 +1,7 @@
 extends CharacterBody3D
 
 @onready var hurtbox_colision: CollisionShape3D = $hurt_box/hurtbox_colision
+@onready var lamparina: OmniLight3D = $lamparina
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
@@ -9,6 +10,7 @@ const JUMP_VELOCITY = 4.5
 @export var anim : AnimatedSprite3D
 @export var lamp : Sprite3D
 @export var light : OmniLight3D
+
 
 #ataques melees
 @export var fists : Area3D
@@ -100,6 +102,10 @@ func _input(event: InputEvent) -> void:
 		punch()
 	if event.is_action_pressed("magic"):
 		magic()
+
+
+func light_force():
+	pass
 
 func look_at_cursor():
 	var target_plane_mouse = Plane(Vector3(0,1,0), position.y)
