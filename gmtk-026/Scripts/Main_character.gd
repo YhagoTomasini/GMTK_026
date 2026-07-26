@@ -187,7 +187,7 @@ func magic():
 func _on_fists_area_body_entered(body: Node3D) -> void:
 	body.takeDamage(global_position, damage)
 
-func player_take_damage(dano:float):
+func player_take_damage(dano:int):
 	hurtbox_colision.set_deferred("disabled", true)
 	Globals.life_player -= dano
 	print(Globals.life_player)
