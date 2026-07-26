@@ -169,6 +169,7 @@ func punch():
 	
 func magic():
 	if state == states.IDLE and spellCooldown.is_stopped():
+		Globals.temp_left -= 16
 		state = states.CASTING
 		spellCooldown.start()
 		
