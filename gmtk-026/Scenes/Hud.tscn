@@ -30,7 +30,7 @@ shader_parameter/spread = 1.0
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_gyfy3"]
 
-[node name="hud" type="Control" node_paths=PackedStringArray("timer", "text_number", "flame_bar")]
+[node name="hud" type="Control" node_paths=PackedStringArray("timer", "text_number", "text_life", "flame_bar", "life_bar")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -40,7 +40,9 @@ grow_vertical = 2
 script = ExtResource("1_chfh5")
 timer = NodePath("Timer")
 text_number = NodePath("CanvasLayer/VBoxContainer/text_number")
+text_life = NodePath("CanvasLayer/VBoxContainer2/text_life")
 flame_bar = NodePath("CanvasLayer/VBoxContainer/NinePatchRect/Sprite2D")
+life_bar = NodePath("CanvasLayer/VBoxContainer2/NinePatchRect/Sprite2D")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.1
@@ -89,12 +91,19 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -20.0
-offset_top = -80.0
-offset_right = 20.0
-offset_bottom = -40.0
+offset_left = -135.5
+offset_top = -140.0
+offset_right = 135.5
+offset_bottom = -26.0
 grow_horizontal = 2
 grow_vertical = 0
+
+[node name="text_life" type="Label" parent="CanvasLayer/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "20"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/VBoxContainer2"]
 self_modulate = Color(0.39908743, 0.17710584, 0.6972132, 1)
@@ -110,9 +119,9 @@ patch_margin_bottom = 38
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/VBoxContainer2/NinePatchRect"]
 modulate = Color(1, 0.2, 0.13725491, 1)
 material = SubResource("ShaderMaterial_rhayu")
-position = Vector2(120.00001, 41.000027)
-scale = Vector2(189.99995, 5.0000196)
+position = Vector2(23.000015, 38.500015)
+scale = Vector2(225.49998, 8.999966)
 texture = SubResource("CanvasTexture_gyfy3")
-offset = Vector2(0, -0.5)
+offset = Vector2(0.5, 0)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

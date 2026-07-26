@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://dgi7q88qgbjwr"]
+
+[node name="Credits" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+clip_contents = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ScrollContainer/MarginContainer"]
+layout_mode = 2
+text = "[b]AS LONG AS THE FLAME STAYS LIT[/b]
+
+[b]Por:[/b]
+Artêmio Neto e Yhago Tomasini
+_______________________________________
+
+[b]Team[/b]
+
+[b]Game Design:[/b]
+Artêmio Neto e Yhago Tomasini
+
+[b]Programming :[/b]
+Artêmio Neto e Yhago Tomasini
+
+[b]Balancing:[/b]
+Artêmio Neto
+
+[b]Character design:[/b]
+Yhago tomasini
+
+[b]UI/UX Design:[/b]
+Yhago Tomasini
+
+[b]Animation:[/b]
+Yhago Tomasini
+_______________________________________
+
+[b]Tool and tecnologies[/b]
+Godot Engine
+Clip Studio
+codeandweb.com - Free Sprite Sheet Packer
+godotshaders.com - shader 2d-fire
+_______________________________________
+
+Sem uso de Inteligência Artificial Generativa
+_______________________________________
+
+[b] Thank you for playing![b]
+_______________________________________
+
+2026 –all rights reserved. :P
+________________________________________
+
+[b]THE END![/b]
+"
+fit_content = true
+horizontal_alignment = 1
