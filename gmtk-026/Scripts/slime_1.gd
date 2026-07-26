@@ -1,4 +1,5 @@
 extends CharacterBody3D
+
 @export var anim : AnimatedSprite3D
 @onready var nav_agent: NavigationAgent3D = $nav_agent
 #@export var collision : CollisionShape3D
@@ -6,7 +7,12 @@ extends CharacterBody3D
 @export var SPEED = 3.0
 @export var life_enemy = 2.0
 @export var damage_enemy = 1
+@export var atack_range : float = 2 
 
+@onready var hit_box: Area3D = $hit_box
+@onready var hitbox_colision: CollisionShape3D = $hit_box/hitbox_colision
+
+var is_attacking: bool = false
 var following : bool = true
 
 func _ready() -> void:
@@ -15,7 +21,7 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	if !following:
 		return
-		
+	
 	var current_location = global_transform.origin
 	var next_location =  nav_agent.get_next_path_position()
 	var new_velocity = (next_location - current_location).normalized() * SPEED
@@ -32,6 +38,8 @@ func _physics_process(_delta: float) -> void:
 	elif velocity.x > 0:
 		anim.flip_h = false
 	
+	target_in_range()
+
 func update_target_location(target_location):
 	if following:
 		nav_agent.target_position = target_location
@@ -50,7 +58,6 @@ func takeDamage(pPosi : Vector3, damage : float) -> void:
 		anim.modulate = Color(2.5, 2.5, 2.5, 1.0)
 		#animação de hurt <-----------
 	else:
-		
 		anim.play("dying")
 		await anim.animation_finished
 		Globals.temp_left += 10
@@ -63,6 +70,21 @@ func knockback(pPosi : Vector3):
 		self, "global_position", global_position + knockbackD *2, 0.2
 	).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	
+func target_in_range() -> void:
+	if is_attacking:
+		return 
+	var target_pos = nav_agent.target_position
+	if global_position.distance_to(target_pos) < atack_range:
+		execute_attack()
+
+func execute_attack() -> void:
+	is_attacking = true
+	hitbox_colision.disabled = false
+	await get_tree().create_timer(0.15).timeout
+	hitbox_colision.disabled = true
+	await get_tree().create_timer(0.8).timeout
+	is_attacking = false
+
 func _on_nav_agent_target_reached() -> void:
 	pass # Replace with function body.
 
@@ -72,3 +94,10 @@ func _on_nav_agent_velocity_computed(safe_velocity: Vector3) -> void:
 		
 	velocity = velocity.move_toward(safe_velocity, 0.25)
 	move_and_slide()
+
+
+func _on_hit_box_body_entered(body: Node3D) -> void:
+	print("teste")
+	if body.is_in_group("player"):
+		print("batendo no player")
+		body.player_take_damage(damage_enemy)

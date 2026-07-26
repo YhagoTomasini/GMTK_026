@@ -28,6 +28,7 @@ window/stretch/mode="viewport"
 [global_group]
 
 enemies=""
+player=""
 
 [input]
 
@@ -102,6 +103,14 @@ magic={
 , Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":5,"axis_value":1.0,"script":null)
 ]
 }
+
+[layer_names]
+
+3d_render/layer_1="Player"
+3d_render/layer_2="player_dont_touch"
+3d_render/layer_3="enemys"
+3d_render/layer_7="hitbox_enemy"
+3d_render/layer_8="hurtbox_player"
 
 [rendering]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://d0tch211y343j"]
+[gd_scene load_steps=30 format=3 uid="uid://d0tch211y343j"]
 
 [ext_resource type="Script" uid="uid://ce0sp0rllv88i" path="res://Scripts/Main_character.gd" id="1_2nftw"]
 [ext_resource type="PackedScene" uid="uid://c0jdlywdd6iy5" path="res://Prefabs/Magic/fireball.tscn" id="2_hck1p"]
@@ -80,8 +80,8 @@ animations = [{
 }]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_knrd4"]
-height = 0.9702606
-radius = 0.64208984
+height = 0.78284836
+radius = 0.6308594
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m62uw"]
 atlas = ExtResource("6_juxdh")
@@ -154,7 +154,11 @@ animations = [{
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_knrd4"]
 
-[node name="player" type="CharacterBody3D" node_paths=PackedStringArray("anim", "lamp", "light", "fists", "fistsAnim", "punchCooldown", "spellCooldown")]
+[sub_resource type="SphereShape3D" id="SphereShape3D_juxdh"]
+radius = 0.331354
+
+[node name="player" type="CharacterBody3D" node_paths=PackedStringArray("anim", "lamp", "light", "fists", "fistsAnim", "punchCooldown", "spellCooldown") groups=["player"]]
+collision_layer = 129
 collision_mask = 3
 script = ExtResource("1_2nftw")
 anim = NodePath("Sprite_MC")
@@ -202,7 +206,7 @@ collision_mask = 4
 monitoring = false
 
 [node name="left_fist" type="CollisionShape3D" parent="fists_area"]
-transform = Transform3D(0.745, 0, 0, 0, 0.0022884437, -0.7449965, 0, 0.7449965, 0.0022884437, -0.0068190694, -0.00022286957, 0.42744535)
+transform = Transform3D(0.745, 0, 0, 0, 0.0022884437, -0.7449965, 0, 0.7449965, 0.0022884437, -0.0068190694, 0.025340982, 0.3576346)
 shape = SubResource("CylinderShape3D_knrd4")
 debug_color = Color(0.9461712, 5.679429e-06, 0.5867409, 1)
 
@@ -234,6 +238,15 @@ one_shot = true
 [node name="CoolDown_spell" type="Timer" parent="."]
 wait_time = 0.6
 one_shot = true
+
+[node name="hurt_box" type="Area3D" parent="."]
+collision_layer = 128
+collision_mask = 0
+
+[node name="hurtbox_colision" type="CollisionShape3D" parent="hurt_box"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0418396, -0.060791016, -0.026306152)
+shape = SubResource("SphereShape3D_juxdh")
+debug_color = Color(2.5027991e-06, 0.5871586, 0.77024156, 0.41960785)
 
 [connection signal="body_entered" from="fists_area" to="." method="_on_fists_area_body_entered"]
 [connection signal="timeout" from="CoolDown_punch" to="." method="_on_cool_down_punch_timeout"]

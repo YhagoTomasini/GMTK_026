@@ -1,13 +1,16 @@
 extends CharacterBody3D
 
+@onready var hurtbox_colision: CollisionShape3D = $hurt_box/hurtbox_colision
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
+@export var life_player = 10
 
 @export var cam : Camera3D
 @export var anim : AnimatedSprite3D
 @export var lamp : Sprite3D
 @export var light : OmniLight3D
+
 #ataques melees
 @export var fists : Area3D
 @export var fistsAnim : AnimatedSprite3D
@@ -15,6 +18,7 @@ const JUMP_VELOCITY = 4.5
 var switchPunch = 1
 var punchCount = 0
 @export var damage : float = 1
+
 #ataques magicos
 @onready var spells_marker: Marker3D = $spells_marker
 @onready var ray_fireball: RayCast3D = $spells_marker/ray_fireball
@@ -181,6 +185,17 @@ func magic():
 
 func _on_fists_area_body_entered(body: Node3D) -> void:
 	body.takeDamage(global_position, damage)
+
+func player_take_damage(dano:float):
+	hurtbox_colision.set_deferred("disabled", true)
+	life_player -= dano
+	print(life_player)
+	await get_tree().create_timer(1).timeout
+	if is_instance_valid(self):
+		hurtbox_colision.set_deferred("disabled", false)
+	if life_player <= 0:
+		print("morreu")
+
 
 
 func _on_cool_down_punch_timeout() -> void:
