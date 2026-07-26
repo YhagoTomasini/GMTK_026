@@ -19,14 +19,19 @@ const JUMP_VELOCITY = 4.5
 var switchPunch = 1
 var punchCount = 0
 @export var damage : int = 1
-@export var fireball_cust : float = 16
 
 #ataques magicos
 @onready var spells_marker: Marker3D = $spells_marker
-@onready var ray_fireball: RayCast3D = $spells_marker/ray_fireball
+@export var castAnim : AnimatedSprite3D
 @export var spellCooldown : Timer
 @export var fireball_scene : PackedScene
+@export var fireball_cust : float = 16
 
+enum states {
+	IDLE,
+	PUNCHING,
+	CASTING
+}
 enum faces {
 	DOWN,
 	UP,
@@ -34,12 +39,6 @@ enum faces {
 	RIGHT
 }
 var facing := faces.DOWN
-
-enum states {
-	IDLE,
-	PUNCHING,
-	CASTING
-}
 var state := states.IDLE
 
 func _physics_process(delta: float) -> void:
@@ -67,19 +66,16 @@ func _physics_process(delta: float) -> void:
 			anim.play("idle_back")
 			lamp.sorting_offset = -2.0
 			light.position.z = lerp(light.position.z, -0.4, 1*delta)
-			
 		else:
 			facing = faces.DOWN
 			anim.play("idle_front")
 			lamp.sorting_offset = 2.0
 			light.position.z = lerp(light.position.z, 0.4, 1*delta)
-			
 		if velocity.x < 0:
 			facing = faces.LEFT
 			anim.flip_h = true
 			lamp.flip_h = true
 			light.position.x = lerp(light.position.x, 0.75, 1*delta)
-
 		elif velocity.x > 0:
 			facing = faces.RIGHT
 			anim.flip_h = false
@@ -95,6 +91,8 @@ func _physics_process(delta: float) -> void:
 func _process(_delta: float) -> void:
 	look_at_cursor()
 	light_force()
+	if state == states.CASTING:
+		castHand()
 	if Globals.temp_left < 0:
 		morte()
 
@@ -104,9 +102,7 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("magic"):
 		magic()
 
-
 func light_force():
-
 	var max_temp_left: float = 666
 
 	var omni_range: float = 2.4
@@ -180,7 +176,7 @@ func punch():
 		fistsAnim.visible = false
 		fists.monitoring = false
 		
-		if punchCount >= 2:
+		if punchCount >= 3:
 			punchCooldown.wait_time = 1.2
 			punchCooldown.start()
 			
@@ -188,24 +184,37 @@ func punch():
 	
 func magic():
 	if state == states.IDLE and spellCooldown.is_stopped():
-		Globals.temp_left -= fireball_cust
 		state = states.CASTING
+		print("y", spells_marker.rotation.y)
+		Globals.temp_left -= fireball_cust
+		
 		spellCooldown.start()
 		
 		var fireball_instanciate = fireball_scene.instantiate()
 		fireball_instanciate.global_transform = $spells_marker.global_transform
 		add_sibling(fireball_instanciate)
 		
+		await get_tree().create_timer(0.1).timeout
 		state = states.IDLE
-		
-	#if ray_fireball.is_colliding():
-		#ray_fireball.get_collider().takeDamage()
-	#await get_tree().create_timer(0.25).timeout
 
+func castHand():
+	castAnim.visible = true
+	if spells_marker.rotation.y >= 0.0:
+		castAnim.flip_h = true
+	else:
+		castAnim.flip_h = false
+	if spells_marker.rotation.y <= 1.0 and spells_marker.rotation.y >= -1.0:
+		castAnim.play("cast_up")
+		castAnim.sorting_offset = -3
+	else:
+		castAnim.play("cast_down")
+		castAnim.sorting_offset = 3
+	
+	await castAnim.animation_finished
+	castAnim.visible = false
 
 func morte():
 	get_tree().change_scene_to_file("res://Scenes/defeat_screen.tscn")
-
 
 func _on_fists_area_body_entered(body: Node3D) -> void:
 	body.takeDamage(global_position, damage)
@@ -219,8 +228,6 @@ func player_take_damage(dano:int):
 		hurtbox_colision.set_deferred("disabled", false)
 	if Globals.life_player <= 0:
 		morte()
-
-
 
 func _on_cool_down_punch_timeout() -> void:
 	punchCount = 0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://d0tch211y343j"]
+[gd_scene load_steps=33 format=3 uid="uid://d0tch211y343j"]
 
 [ext_resource type="Script" uid="uid://ce0sp0rllv88i" path="res://Scripts/Main_character.gd" id="1_2nftw"]
 [ext_resource type="PackedScene" uid="uid://c0jdlywdd6iy5" path="res://Prefabs/Magic/fireball.tscn" id="2_hck1p"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://b0smk08enr2hn" path="res://Assets/punch1_spritesheet.png" id="6_juxdh"]
 [ext_resource type="Texture2D" uid="uid://btjpsymu468cu" path="res://Assets/punch2_spritesheet.png" id="7_4qbli"]
 [ext_resource type="Texture2D" uid="uid://doolf7mv10ch2" path="res://Assets/lamp_1.png" id="7_kgmex"]
+[ext_resource type="Texture2D" uid="uid://p8aupmgaim2c" path="res://Assets/casting2.png" id="8_08u7w"]
+[ext_resource type="Texture2D" uid="uid://cvyad0f3u62rb" path="res://Assets/casting1.png" id="9_kgmex"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_kln2b"]
 
@@ -154,10 +156,41 @@ animations = [{
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_knrd4"]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_2xbkd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_08u7w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_08u7w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_08u7w")
+}],
+"loop": false,
+"name": &"cast_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_kgmex")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_kgmex")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_kgmex")
+}],
+"loop": false,
+"name": &"cast_up",
+"speed": 5.0
+}]
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_juxdh"]
 radius = 0.331354
 
-[node name="player" type="CharacterBody3D" node_paths=PackedStringArray("anim", "lamp", "light", "fists", "fistsAnim", "punchCooldown", "spellCooldown") groups=["player"]]
+[node name="player" type="CharacterBody3D" node_paths=PackedStringArray("anim", "lamp", "light", "fists", "fistsAnim", "punchCooldown", "castAnim", "spellCooldown") groups=["player"]]
 collision_layer = 129
 collision_mask = 3
 script = ExtResource("1_2nftw")
@@ -167,9 +200,10 @@ light = NodePath("lamparina")
 fists = NodePath("fists_area")
 fistsAnim = NodePath("fists_area/Sprite3D")
 punchCooldown = NodePath("CoolDown_punch")
-fireball_cust = 40.0
+castAnim = NodePath("spells_marker/AnimatedSprite3D")
 spellCooldown = NodePath("CoolDown_spell")
 fireball_scene = ExtResource("2_hck1p")
+fireball_cust = 40.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.745, 0, 0, 0, 0.745, 0, 0, 0, 0.745, 0, 0, 0)
@@ -212,7 +246,7 @@ shape = SubResource("CylinderShape3D_knrd4")
 debug_color = Color(0.9461712, 5.679429e-06, 0.5867409, 1)
 
 [node name="Sprite3D" type="AnimatedSprite3D" parent="fists_area"]
-transform = Transform3D(0.4746775, 0, 0, 0, 0.47759956, 0, 0, 0, 1, -0.036453903, 0, 0.47560674)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, -0.036, 0, 0.5)
 visible = false
 billboard = 1
 shaded = true
@@ -223,7 +257,7 @@ animation = &"punch_up"
 transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="spells_marker"]
-transform = Transform3D(0.135, 0, 0, 0, -5.9010374e-09, -0.135, 0, 0.135, -5.9010374e-09, 0, 0, 0.10404271)
+transform = Transform3D(0.4014839, 0, 0, 1.7763568e-15, -1.2399013e-08, -0.3920651, 0, 0.2836564, -1.713771e-08, 0, 0, 0.36467224)
 visible = false
 mesh = SubResource("CapsuleMesh_knrd4")
 
@@ -233,7 +267,16 @@ enabled = false
 target_position = Vector3(0, 0, -1)
 collision_mask = 4
 
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="spells_marker"]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 1, 0, 0, -0.5)
+visible = false
+billboard = 1
+shaded = true
+sprite_frames = SubResource("SpriteFrames_2xbkd")
+animation = &"cast_up"
+
 [node name="CoolDown_punch" type="Timer" parent="."]
+wait_time = 0.6
 one_shot = true
 
 [node name="CoolDown_spell" type="Timer" parent="."]
