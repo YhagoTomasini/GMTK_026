@@ -94,6 +94,7 @@ func _physics_process(delta: float) -> void:
 	
 func _process(_delta: float) -> void:
 	look_at_cursor()
+	light_force()
 	if Globals.temp_left < 0:
 		morte()
 
@@ -105,7 +106,16 @@ func _input(event: InputEvent) -> void:
 
 
 func light_force():
-	pass
+
+	var max_temp_left: float = 666
+
+	var omni_range: float = 2.4
+	var percentage_range = clamp(Globals.temp_left / max_temp_left, 0.6, 1.0)
+	lamparina.omni_range = omni_range * percentage_range
+	
+	var light_energy: float = 0.9
+	var percentage_energy = clamp(Globals.temp_left / max_temp_left, 0, 1.0)
+	lamparina.light_energy = omni_range * percentage_energy
 
 func look_at_cursor():
 	var target_plane_mouse = Plane(Vector3(0,1,0), position.y)

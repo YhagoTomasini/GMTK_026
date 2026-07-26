@@ -200,7 +200,7 @@ light_color = Color(1, 0.49019608, 0.15686275, 1)
 light_energy = 0.8
 shadow_enabled = true
 omni_range = 2.3
-omni_attenuation = 4.0
+omni_attenuation = 3.0
 
 [node name="fists_area" type="Area3D" parent="."]
 collision_mask = 4
