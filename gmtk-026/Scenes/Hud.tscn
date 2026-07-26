@@ -1,8 +1,36 @@
-[gd_scene load_steps=2 format=3 uid="uid://dat5q57ryr0j5"]
+[gd_scene load_steps=10 format=3 uid="uid://dat5q57ryr0j5"]
 
-[ext_resource type="Script" path="res://Scripts/fire_timer.gd" id="1_chfh5"]
+[ext_resource type="Script" uid="uid://6nsl2cw5ki82" path="res://Scripts/fire_timer.gd" id="1_chfh5"]
+[ext_resource type="Texture2D" uid="uid://b24bxh157bvt1" path="res://Assets/button_bg.png" id="2_3jfbl"]
+[ext_resource type="Shader" uid="uid://c00x80ixcgvbj" path="res://Resources/lampBar.gdshader" id="3_3j5vs"]
+[ext_resource type="Texture2D" uid="uid://dug05801f2lbf" path="res://Assets/tex_swirl_0002_MK.jpg" id="4_rhayu"]
+[ext_resource type="Shader" uid="uid://btq0n4085n01r" path="res://Resources/lifeBar.gdshader" id="5_3j5vs"]
 
-[node name="hud" type="Control"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gyfy3"]
+shader = ExtResource("3_3j5vs")
+shader_parameter/noise_tex = ExtResource("4_rhayu")
+shader_parameter/velo = 1.2
+shader_parameter/size = 1.0
+shader_parameter/brighter_color = Color(1, 0.5921569, 0.25882354, 1)
+shader_parameter/middle_color = Color(1, 0.29411766, 0.05490196, 1)
+shader_parameter/darker_color = Color(0.8156863, 0.14901961, 0.40392157, 1)
+shader_parameter/spread = 1.0
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_xy7gf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rhayu"]
+shader = ExtResource("5_3j5vs")
+shader_parameter/noise_tex = ExtResource("4_rhayu")
+shader_parameter/velo = 0.5
+shader_parameter/size = 1.0
+shader_parameter/brighter_color = Color(0.89827543, 2.5990605e-06, 1.2513996e-06, 1)
+shader_parameter/middle_color = Color(0.8901961, 0.06666667, 0.2784314, 1)
+shader_parameter/darker_color = Color(0, 0.05490196, 0, 1)
+shader_parameter/spread = 1.0
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_gyfy3"]
+
+[node name="hud" type="Control" node_paths=PackedStringArray("timer", "text_number", "flame_bar")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -10,16 +38,81 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_chfh5")
-
-[node name="text_number" type="Label" parent="."]
-layout_mode = 0
-offset_left = 651.0
-offset_top = 46.0
-offset_right = 733.0
-offset_bottom = 113.0
-theme_override_font_sizes/font_size = 48
-text = "100"
+timer = NodePath("Timer")
+text_number = NodePath("CanvasLayer/VBoxContainer/text_number")
+flame_bar = NodePath("CanvasLayer/VBoxContainer/NinePatchRect/Sprite2D")
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 40.0
+offset_top = -73.5
+offset_right = 122.0
+offset_bottom = 73.5
+grow_vertical = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/VBoxContainer"]
+self_modulate = Color(0.4117647, 0.3372549, 0.5294118, 1)
+custom_minimum_size = Vector2(128, 240)
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("2_3jfbl")
+patch_margin_left = 27
+patch_margin_top = 38
+patch_margin_right = 27
+patch_margin_bottom = 38
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/VBoxContainer/NinePatchRect"]
+modulate = Color(1, 0.2, 0.13725491, 1)
+material = SubResource("ShaderMaterial_gyfy3")
+position = Vector2(64, 206.5)
+scale = Vector2(82, 172)
+texture = SubResource("CanvasTexture_xy7gf")
+offset = Vector2(0, -0.5)
+
+[node name="text_number" type="Label" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -80.0
+offset_right = 20.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/VBoxContainer2"]
+self_modulate = Color(0.39908743, 0.17710584, 0.6972132, 1)
+custom_minimum_size = Vector2(240, 64)
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("2_3jfbl")
+patch_margin_left = 117
+patch_margin_top = 38
+patch_margin_right = 25
+patch_margin_bottom = 38
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/VBoxContainer2/NinePatchRect"]
+modulate = Color(1, 0.2, 0.13725491, 1)
+material = SubResource("ShaderMaterial_rhayu")
+position = Vector2(120.00001, 41.000027)
+scale = Vector2(189.99995, 5.0000196)
+texture = SubResource("CanvasTexture_gyfy3")
+offset = Vector2(0, -0.5)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

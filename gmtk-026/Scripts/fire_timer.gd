@@ -1,7 +1,8 @@
 extends Control
 
-@onready var timer: Timer = $Timer
-@onready var text_number: Label = $text_number
+@export var timer: Timer
+@export var text_number: Label
+@export var flame_bar: Sprite2D
 
 
 func _ready() -> void:
@@ -12,7 +13,10 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	text_atualization()
 	if Input.is_action_just_pressed("ui_accept"):
-		Globals.temp_left += 1
+		Globals.temp_left += 2
+		
+	var shader = flame_bar.material as ShaderMaterial
+	shader.set_shader_parameter("size", 2.25 - (Globals.temp_left / 666.0))
 
 func text_atualization():
 	text_number.text = str(Globals.temp_left)

@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://dr05yaivyuxep"]
+[gd_scene load_steps=4 format=3 uid="uid://dr05yaivyuxep"]
 
 [ext_resource type="Script" uid="uid://c2es2lo6ktfxk" path="res://Scripts/pause.gd" id="1_o80xk"]
+[ext_resource type="Theme" uid="uid://dk1lxaej587t" path="res://Resources/theme_base.tres" id="2_5a6ek"]
+[ext_resource type="Theme" uid="uid://cm8awysbam5b6" path="res://Resources/theme_base2.tres" id="3_e0jm0"]
 
 [node name="Pause" type="Control" node_paths=PackedStringArray("voltarB", "corFundo")]
 process_mode = 3
@@ -11,7 +13,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_o80xk")
-voltarB = NodePath("VBoxContainer/BReiniciar")
+voltarB = NodePath("VBoxContainer/BVoltar")
 corFundo = NodePath("ColorRect")
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -37,23 +39,27 @@ offset_bottom = 22.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="BVoltar" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_5a6ek")
+text = "Back"
+
 [node name="BReiniciar" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("3_e0jm0")
 text = "Restart"
 
 [node name="BSom" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("3_e0jm0")
 text = "Sound"
 
 [node name="BMenu" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("3_e0jm0")
 text = "Menu"
 
-[node name="BVoltar" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-text = "Back"
-
+[connection signal="pressed" from="VBoxContainer/BVoltar" to="." method="_on_b_voltar_pressed"]
 [connection signal="pressed" from="VBoxContainer/BReiniciar" to="." method="_on_b_reiniciar_pressed"]
 [connection signal="pressed" from="VBoxContainer/BSom" to="." method="_on_b_som_pressed"]
 [connection signal="pressed" from="VBoxContainer/BMenu" to="." method="_on_b_menu_pressed"]
-[connection signal="pressed" from="VBoxContainer/BVoltar" to="." method="_on_b_voltar_pressed"]
