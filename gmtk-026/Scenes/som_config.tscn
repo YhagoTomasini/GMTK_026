@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dauhtd8q87fcf"]
 
 [node name="SomConfig" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

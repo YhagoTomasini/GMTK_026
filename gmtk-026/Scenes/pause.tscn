@@ -1,12 +1,27 @@
-[gd_scene format=3 uid="uid://dr05yaivyuxep"]
+[gd_scene load_steps=2 format=3 uid="uid://dr05yaivyuxep"]
 
-[node name="Pause" type="Control"]
+[ext_resource type="Script" uid="uid://c2es2lo6ktfxk" path="res://Scripts/pause.gd" id="1_o80xk"]
+
+[node name="Pause" type="Control" node_paths=PackedStringArray("voltarB", "corFundo")]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_o80xk")
+voltarB = NodePath("VBoxContainer/BReiniciar")
+corFundo = NodePath("ColorRect")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.38039216)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -24,12 +39,16 @@ grow_vertical = 2
 
 [node name="BReiniciar" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+text = "Restart"
 
 [node name="BSom" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+text = "Sound"
 
 [node name="BMenu" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+text = "Menu"
 
 [node name="BVoltar" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+text = "Back"
