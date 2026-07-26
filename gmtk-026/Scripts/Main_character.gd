@@ -14,6 +14,7 @@ const JUMP_VELOCITY = 4.5
 @export var punchCooldown : Timer
 var switchPunch = 1
 var punchCount = 0
+@export var damage : float = 1
 #ataques magicos
 @onready var spells_marker: Marker3D = $spells_marker
 @onready var ray_fireball: RayCast3D = $spells_marker/ray_fireball
@@ -179,7 +180,7 @@ func magic():
 	#await get_tree().create_timer(0.25).timeout
 
 func _on_fists_area_body_entered(body: Node3D) -> void:
-	body.takeDamage(global_position)
+	body.takeDamage(global_position, damage)
 
 
 func _on_cool_down_punch_timeout() -> void:

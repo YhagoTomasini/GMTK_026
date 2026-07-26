@@ -3,7 +3,10 @@ extends CharacterBody3D
 @onready var nav_agent: NavigationAgent3D = $nav_agent
 #@export var collision : CollisionShape3D
 
-var SPEED = 3.0
+@export var SPEED = 3.0
+@export var life_enemy = 2.0
+@export var damage_enemy = 1
+
 var following : bool = true
 
 func _ready() -> void:
@@ -33,17 +36,25 @@ func update_target_location(target_location):
 	if following:
 		nav_agent.target_position = target_location
 	
-func takeDamage(pPosi : Vector3) -> void:
+func takeDamage(pPosi : Vector3, damage : float) -> void:
+	life_enemy -= damage
 	following = false
 	collision_mask = 24
 	anim.modulate = Color(2.5, 0.0, 0.0, 1.0)
 	knockback(pPosi)
+	if life_enemy > 0:
+		collision_mask = 3
+		await get_tree().create_timer(.8).timeout
+# retirando o following o bixo n para de correr atrás de você entretanto ele n te persegue depois de morto
+		following = true
+		anim.modulate = Color(2.5, 2.5, 2.5, 1.0)
+		#animação de hurt <-----------
+	else:
 		
-	anim.play("dying")
-	
-	await anim.animation_finished
-	Globals.temp_left += 10
-	queue_free()
+		anim.play("dying")
+		await anim.animation_finished
+		Globals.temp_left += 10
+		queue_free()
 
 func knockback(pPosi : Vector3):
 	var knockbackD = (global_position - pPosi).normalized()

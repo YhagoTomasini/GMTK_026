@@ -1,6 +1,6 @@
-[gd_resource type="Theme" load_steps=9 format=3 uid="uid://b143ra3iqge8s"]
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://dk1lxaej587t"]
 
-[ext_resource type="StyleBox" uid="uid://j2sukbdhcf2d" path="res://Resources/tex_box.tres" id="1_8aj4f"]
+[ext_resource type="StyleBox" path="res://Resources/tex_box.tres" id="1_8aj4f"]
 [ext_resource type="Texture2D" uid="uid://b24bxh157bvt1" path="res://Assets/button_bg.png" id="2_e0elu"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rfqti"]

@@ -125,7 +125,6 @@ billboard = 1
 shaded = true
 sprite_frames = SubResource("SpriteFrames_fw6wf")
 autoplay = "default"
-frame_progress = 0.6352932
 
 [node name="Shadow" type="Sprite3D" parent="."]
 transform = Transform3D(0.45, 0, 0, 0, -1.9670125e-08, -0.45, 0, 0.45, -1.9670125e-08, 0, -0.33, 0.15)
