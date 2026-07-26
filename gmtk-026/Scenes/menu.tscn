@@ -38,7 +38,7 @@ texture = ExtResource("3_wbdvm")
 scroll_offset = Vector2(0.5, 0.5)
 
 [node name="fundo_3" type="Sprite2D" parent="Parallax2D3"]
-modulate = Color(0.4114968, 0.34716415, 0.6726365, 1)
+modulate = Color(0.23989576, 0.19346532, 0.4197493, 1)
 position = Vector2(640, 320)
 texture = ExtResource("4_q3rjx")
 
@@ -80,6 +80,7 @@ theme = ExtResource("6_q3rjx")
 text = "Play"
 
 [node name="BOptions" type="Button" parent="CanvasLayer/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme = ExtResource("7_6swd7")
 text = "Options"
