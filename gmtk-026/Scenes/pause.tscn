@@ -52,3 +52,8 @@ text = "Menu"
 [node name="BVoltar" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Back"
+
+[connection signal="pressed" from="VBoxContainer/BReiniciar" to="." method="_on_b_reiniciar_pressed"]
+[connection signal="pressed" from="VBoxContainer/BSom" to="." method="_on_b_som_pressed"]
+[connection signal="pressed" from="VBoxContainer/BMenu" to="." method="_on_b_menu_pressed"]
+[connection signal="pressed" from="VBoxContainer/BVoltar" to="." method="_on_b_voltar_pressed"]

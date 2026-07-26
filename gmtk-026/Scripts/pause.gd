@@ -69,16 +69,19 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _on_b_reiniciar_pressed() -> void:
-	pass # Replace with function body.
-
+	get_tree().paused = false
+	await get_tree().create_timer(0.1).timeout
+	get_tree().change_scene_to_file("res://Scenes/world.tscn")
 
 func _on_b_som_pressed() -> void:
 	pass # Replace with function body.
 
 
 func _on_b_menu_pressed() -> void:
-	pass # Replace with function body.
+	get_tree().paused = false
+	await get_tree().create_timer(0.1).timeout
+	get_tree().change_scene_to_file("res://Scenes/menu.tscn")
 
 
 func _on_b_voltar_pressed() -> void:
-	pass # Replace with function body.
+	despausa()
