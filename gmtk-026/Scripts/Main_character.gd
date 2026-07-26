@@ -92,6 +92,8 @@ func _physics_process(delta: float) -> void:
 	
 func _process(_delta: float) -> void:
 	look_at_cursor()
+	if Globals.temp_left < 0:
+		morte()
 
 func _input(event: InputEvent) -> void:		
 	if event.is_action_pressed("soco"):
@@ -184,6 +186,11 @@ func magic():
 		#ray_fireball.get_collider().takeDamage()
 	#await get_tree().create_timer(0.25).timeout
 
+
+func morte():
+	get_tree().change_scene_to_file("res://Scenes/defeat_screen.tscn")
+
+
 func _on_fists_area_body_entered(body: Node3D) -> void:
 	body.takeDamage(global_position, damage)
 
@@ -195,7 +202,7 @@ func player_take_damage(dano:int):
 	if is_instance_valid(self):
 		hurtbox_colision.set_deferred("disabled", false)
 	if Globals.life_player <= 0:
-		get_tree().change_scene_to_file("res://Scenes/defeat_screen.tscn")
+		morte()
 
 
 
