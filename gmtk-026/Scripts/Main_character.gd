@@ -16,7 +16,7 @@ const JUMP_VELOCITY = 4.5
 @export var punchCooldown : Timer
 var switchPunch = 1
 var punchCount = 0
-@export var damage : float = 1
+@export var damage : int = 1
 @export var fireball_cust : float = 16
 
 #ataques magicos
@@ -195,7 +195,7 @@ func player_take_damage(dano:float):
 	if is_instance_valid(self):
 		hurtbox_colision.set_deferred("disabled", false)
 	if Globals.life_player <= 0:
-		print("morreu")
+		get_tree().change_scene_to_file("res://Scenes/defeat_screen.tscn")
 
 
 

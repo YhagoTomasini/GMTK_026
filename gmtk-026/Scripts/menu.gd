@@ -52,7 +52,7 @@ func _on_b_options_pressed() -> void:
 
 
 func _on_b_credits_pressed() -> void:
-	pass # Replace with function body.
+	get_tree().change_scene_to_file("res://Scenes/credits.tscn")
 
 
 func _on_b_quit_pressed() -> void:

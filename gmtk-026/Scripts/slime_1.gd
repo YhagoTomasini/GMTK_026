@@ -6,7 +6,7 @@ extends CharacterBody3D
 
 @export var SPEED = 3.0
 @export var life_enemy = 2.0
-@export var damage_enemy = 1
+@export var damage_enemy : int = 1
 @export var atack_range : float = 2 
 @export var time_gain : float = 5 * 4
 @export var player_life_regain : float = 1
