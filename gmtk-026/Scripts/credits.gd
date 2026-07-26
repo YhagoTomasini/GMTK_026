@@ -9,6 +9,10 @@ var acabou: bool = false
 
 var acelerando : bool
 
+@export var parallax : Array[Parallax2D]
+var intensidade = 25.0
+var suavidade = 5.0
+
 func _ready() -> void:
 	acelerando = false
 	acabou = false
@@ -19,6 +23,17 @@ func fim():
 	print("fim")
 
 func _process(delta: float) -> void:
+	var mouse_pos = get_viewport().get_mouse_position()
+	var screen_size = get_viewport_rect().size
+	
+	var offset = (mouse_pos - screen_size / 2.0) / (screen_size / 2.0)
+	
+	for i in parallax.size():
+		var fator = (i + 1) / float(parallax.size())
+		var alvo = offset * intensidade * fator
+		
+		parallax[i].scroll_offset = parallax[i].scroll_offset.lerp(alvo, delta * suavidade)
+	
 	if acabou:
 		return
 	

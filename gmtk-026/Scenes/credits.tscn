@@ -1,12 +1,4 @@
-<<<<<<< Updated upstream
-[gd_scene load_steps=0 format=3 uid="uid://dgi7q88qgbjwr"]
-=======
-<<<<<<< HEAD
 [gd_scene load_steps=7 format=3 uid="uid://dgi7q88qgbjwr"]
-=======
-[gd_scene load_steps=0 format=3 uid="uid://dgi7q88qgbjwr"]
->>>>>>> eabce26831daa9273735fb28da694616c089c619
->>>>>>> Stashed changes
 
 [ext_resource type="Script" uid="uid://bmms32y8snbwf" path="res://Scripts/credits.gd" id="1_gryuy"]
 [ext_resource type="PackedScene" uid="uid://dr05yaivyuxep" path="res://Scenes/pause.tscn" id="2_ccovl"]
@@ -15,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dvgegqtm60gqi" path="res://Assets/fundo31.png" id="4_803yc"]
 [ext_resource type="Texture2D" uid="uid://bl286pfn0o5ow" path="res://Assets/fundo4.png" id="5_1wbrc"]
 
-[node name="Credits" type="Control" node_paths=PackedStringArray("scroll", "text_node")]
+[node name="Credits" type="Control" node_paths=PackedStringArray("scroll", "text_node", "pause", "parallax")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,6 +17,8 @@ grow_vertical = 2
 script = ExtResource("1_gryuy")
 scroll = NodePath("ScrollContainer")
 text_node = NodePath("ScrollContainer/MarginContainer/RichTextLabel")
+pause = NodePath("CanvasLayer/Pause")
+parallax = [NodePath("Parallax2D"), NodePath("Parallax2D2"), NodePath("Parallax2D3"), NodePath("Parallax2D4")]
 
 [node name="Parallax2D" type="Parallax2D" parent="."]
 
@@ -70,39 +64,13 @@ vertical_scroll_mode = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_constants/margin_top = 720
+theme_override_constants/margin_bottom = 720
 
 [node name="RichTextLabel" type="RichTextLabel" parent="ScrollContainer/MarginContainer"]
 layout_mode = 2
 bbcode_enabled = true
-text = "
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-[b]AS LONG AS THE FLAME STAYS LIT[/b]
+text = "[b]AS LONG AS THE FLAME STAYS LIT[/b]
 
 [b]Por:[/b]
 Artêmio Neto e Yhago Tomasini
@@ -142,27 +110,13 @@ _______________________________________
 [b] Thank you for playing![b]
 _______________________________________
 
-2026 –all rights reserved. :P
+2026 – all rights reserved. :P
 ________________________________________
 
-[b]THE END![/b]
-
-
-
-
-
-
-
-
-
-
-
-
-"
+[b]THE END![/b]"
 fit_content = true
 horizontal_alignment = 1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Pause" parent="CanvasLayer" node_paths=PackedStringArray("configs") instance=ExtResource("2_ccovl")]
-configs = NodePath(".")
+[node name="Pause" parent="CanvasLayer" instance=ExtResource("2_ccovl")]
