@@ -1,0 +1,100 @@
+[gd_scene load_steps=8 format=3 uid="uid://dn6r4bjuj17hg"]
+
+[ext_resource type="Script" uid="uid://cuq7tncrpxc6a" path="res://Scripts/menu.gd" id="1_wwsa2"]
+[ext_resource type="Texture2D" uid="uid://dg2lvhnrjb53s" path="res://Assets/fundo1.png" id="2_jsrd8"]
+[ext_resource type="Texture2D" uid="uid://4bgjjmmo0qf3" path="res://Assets/fundo2.png" id="3_wbdvm"]
+[ext_resource type="Texture2D" uid="uid://b3grqirscrs13" path="res://Assets/fundo3.png" id="4_q3rjx"]
+[ext_resource type="Texture2D" uid="uid://bl286pfn0o5ow" path="res://Assets/fundo4.png" id="5_6swd7"]
+[ext_resource type="PackedScene" uid="uid://dr05yaivyuxep" path="res://Scenes/pause.tscn" id="6_wbdvm"]
+[ext_resource type="PackedScene" uid="uid://dauhtd8q87fcf" path="res://Scenes/som_config.tscn" id="7_q3rjx"]
+
+[node name="Menu" type="Control" node_paths=PackedStringArray("parallax", "bPlay")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wwsa2")
+parallax = [NodePath("Parallax2D"), NodePath("Parallax2D2"), NodePath("Parallax2D3"), NodePath("Parallax2D4")]
+bPlay = NodePath("CanvasLayer/VBoxContainer/BPlay")
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+
+[node name="fundo_1" type="Sprite2D" parent="Parallax2D"]
+position = Vector2(640, 360)
+texture = ExtResource("2_jsrd8")
+
+[node name="Parallax2D2" type="Parallax2D" parent="."]
+scroll_offset = Vector2(0.2, 0.2)
+
+[node name="fundo_2" type="Sprite2D" parent="Parallax2D2"]
+position = Vector2(640, 320)
+texture = ExtResource("3_wbdvm")
+
+[node name="Parallax2D3" type="Parallax2D" parent="."]
+scroll_offset = Vector2(0.5, 0.5)
+
+[node name="fundo_3" type="Sprite2D" parent="Parallax2D3"]
+position = Vector2(640, 320)
+texture = ExtResource("4_q3rjx")
+
+[node name="Parallax2D4" type="Parallax2D" parent="."]
+scroll_scale = Vector2(4, 4)
+scroll_offset = Vector2(16, 16)
+
+[node name="fundo_4" type="Sprite2D" parent="Parallax2D4"]
+position = Vector2(640, 320)
+texture = ExtResource("5_6swd7")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.2509804)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -68.0
+offset_right = 35.0
+offset_bottom = 68.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BPlay" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+text = "Play"
+
+[node name="BOptions" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+text = "Options"
+
+[node name="BCredits" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+text = "Credits"
+
+[node name="BQuit" type="Button" parent="CanvasLayer/VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Quit"
+
+[node name="Pause" parent="CanvasLayer" instance=ExtResource("6_wbdvm")]
+visible = false
+
+[node name="SomConfig" parent="CanvasLayer" instance=ExtResource("7_q3rjx")]
+visible = false
+
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/BPlay" to="." method="_on_b_play_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/BOptions" to="." method="_on_b_options_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/BCredits" to="." method="_on_b_credits_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/BQuit" to="." method="_on_b_quit_pressed"]
