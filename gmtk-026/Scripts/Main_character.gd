@@ -4,7 +4,6 @@ extends CharacterBody3D
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
-@export var life_player = 10
 
 @export var cam : Camera3D
 @export var anim : AnimatedSprite3D
@@ -188,12 +187,12 @@ func _on_fists_area_body_entered(body: Node3D) -> void:
 
 func player_take_damage(dano:float):
 	hurtbox_colision.set_deferred("disabled", true)
-	life_player -= dano
-	print(life_player)
+	Globals.life_player -= dano
+	print(Globals.life_player)
 	await get_tree().create_timer(1).timeout
 	if is_instance_valid(self):
 		hurtbox_colision.set_deferred("disabled", false)
-	if life_player <= 0:
+	if Globals.life_player <= 0:
 		print("morreu")
 
 

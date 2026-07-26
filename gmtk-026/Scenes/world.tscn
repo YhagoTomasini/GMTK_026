@@ -7,9 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://cncvv1t8mmyyw" path="res://Prefabs/slime_1.tscn" id="5_5v1tr"]
 [ext_resource type="Script" uid="uid://cwxh86jtpvy6y" path="res://Scripts/shadow.gd" id="6_o06y3"]
 [ext_resource type="PackedScene" uid="uid://b46rsxkdcyehr" path="res://Prefabs/pivo_spawner.tscn" id="7_o06y3"]
-[ext_resource type="PackedScene" path="res://Scenes/som_config.tscn" id="8_0fj1v"]
-[ext_resource type="PackedScene" path="res://Scenes/pause.tscn" id="9_ikia7"]
-[ext_resource type="PackedScene" path="res://Scenes/Hud.tscn" id="10_7yui6"]
+[ext_resource type="PackedScene" uid="uid://dauhtd8q87fcf" path="res://Scenes/som_config.tscn" id="8_0fj1v"]
+[ext_resource type="PackedScene" uid="uid://dr05yaivyuxep" path="res://Scenes/pause.tscn" id="9_ikia7"]
+[ext_resource type="PackedScene" uid="uid://dat5q57ryr0j5" path="res://Scenes/Hud.tscn" id="10_7yui6"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_o06y3"]
 
@@ -87,7 +87,7 @@ script = ExtResource("6_o06y3")
 player = NodePath("../player")
 
 [node name="Parede" type="CSGCombiner3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.033549786, 0, 0)
+transform = Transform3D(0.66920567, 0, 0, 0, 1, 0, 0, 0, 0.7108885, 0.033549786, 0, 0)
 use_collision = true
 collision_layer = 2
 

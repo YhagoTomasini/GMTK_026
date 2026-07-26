@@ -8,6 +8,8 @@ extends CharacterBody3D
 @export var life_enemy = 2.0
 @export var damage_enemy = 1
 @export var atack_range : float = 2 
+@export var time_gain : float = 2 * 4
+@export var player_life_regain : float = 1
 
 @onready var hit_box: Area3D = $hit_box
 @onready var hitbox_colision: CollisionShape3D = $hit_box/hitbox_colision
@@ -60,7 +62,8 @@ func takeDamage(pPosi : Vector3, damage : float) -> void:
 	else:
 		anim.play("dying")
 		await anim.animation_finished
-		Globals.temp_left += 10
+		Globals.temp_left += time_gain
+		Globals.life_player += 1
 		queue_free()
 
 func knockback(pPosi : Vector3):
