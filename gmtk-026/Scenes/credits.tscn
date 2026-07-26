@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://dgi7q88qgbjwr"]
+[gd_scene load_steps=0 format=3 uid="uid://dgi7q88qgbjwr"]
 
 [node name="Credits" type="Control"]
 layout_mode = 3

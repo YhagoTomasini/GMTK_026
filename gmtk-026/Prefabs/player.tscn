@@ -167,6 +167,7 @@ light = NodePath("OmniLight3D")
 fists = NodePath("fists_area")
 fistsAnim = NodePath("fists_area/Sprite3D")
 punchCooldown = NodePath("CoolDown_punch")
+fireball_cust = 40.0
 spellCooldown = NodePath("CoolDown_spell")
 fireball_scene = ExtResource("2_hck1p")
 

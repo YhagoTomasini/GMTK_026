@@ -83,7 +83,7 @@ func target_in_range() -> void:
 func execute_attack() -> void:
 	is_attacking = true
 	hitbox_colision.disabled = false
-	await get_tree().create_timer(0.15).timeout
+	await get_tree().create_timer(0.3).timeout
 	hitbox_colision.disabled = true
 	await get_tree().create_timer(0.8).timeout
 	is_attacking = false

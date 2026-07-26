@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cu7b3aajynyi1"]
+[gd_scene load_steps=17 format=3 uid="uid://cu7b3aajynyi1"]
 
 [ext_resource type="Script" uid="uid://c7ugqifkg1c4x" path="res://Scripts/main.gd" id="1_5ukr8"]
 [ext_resource type="PackedScene" uid="uid://d0tch211y343j" path="res://Prefabs/player.tscn" id="3_5a7ea"]
@@ -35,6 +35,12 @@ cell_height = 0.1
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5ukr8"]
 albedo_color = Color(0.34117648, 0.27450982, 0.36862746, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0fj1v"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(0, 0, 0, 1)
 
 [node name="world" type="Node3D"]
 script = ExtResource("1_5ukr8")
@@ -87,7 +93,8 @@ script = ExtResource("6_o06y3")
 player = NodePath("../player")
 
 [node name="Parede" type="CSGCombiner3D" parent="."]
-transform = Transform3D(0.66920567, 0, 0, 0, 1, 0, 0, 0, 0.7108885, 0.033549786, 0, 0)
+transform = Transform3D(0.5120075, 0, 0, 0, 0.5721017, 0, 0, 0, 0.5896593, 0.033549786, -0.7877426, 0)
+material_override = SubResource("StandardMaterial3D_0fj1v")
 use_collision = true
 collision_layer = 2
 

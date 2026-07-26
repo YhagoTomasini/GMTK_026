@@ -17,6 +17,7 @@ const JUMP_VELOCITY = 4.5
 var switchPunch = 1
 var punchCount = 0
 @export var damage : float = 1
+@export var fireball_cust : float = 16
 
 #ataques magicos
 @onready var spells_marker: Marker3D = $spells_marker
@@ -169,7 +170,7 @@ func punch():
 	
 func magic():
 	if state == states.IDLE and spellCooldown.is_stopped():
-		Globals.temp_left -= 16
+		Globals.temp_left -= fireball_cust
 		state = states.CASTING
 		spellCooldown.start()
 		

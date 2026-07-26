@@ -9,6 +9,12 @@ extends Node3D
 func _ready() -> void:
 	await get_tree().create_timer(1).timeout
 	timer.start()
+	await get_tree().create_timer(60).timeout
+	timer.wait_time = 1.5
+	await get_tree().create_timer(180).timeout
+	timer.wait_time = 1
+	await get_tree().create_timer(300).timeout
+	timer.wait_time = 0.5
 
 func spawn():
 	var escolido = arraysDeEnemys.pick_random()

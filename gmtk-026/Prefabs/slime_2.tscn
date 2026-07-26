@@ -1,58 +1,58 @@
-[gd_scene load_steps=20 format=3 uid="uid://cncvv1t8mmyyw"]
+[gd_scene load_steps=20 format=3 uid="uid://cw10mhwbkmueq"]
 
-[ext_resource type="Script" uid="uid://viy85eyns7p1" path="res://Scripts/slime_1.gd" id="1_n3tpi"]
-[ext_resource type="Texture2D" uid="uid://duid0scrnkuxa" path="res://Assets/slime1_spritesheet.png" id="2_op0xf"]
-[ext_resource type="Texture2D" uid="uid://dus5sv5i7fkd5" path="res://Assets/slime_death_spritesheet.png" id="3_n3tpi"]
-[ext_resource type="Texture2D" uid="uid://cnjsmjd1slrss" path="res://Assets/Animation_gmtk026.png" id="5_lx30c"]
+[ext_resource type="Script" uid="uid://viy85eyns7p1" path="res://Scripts/slime_1.gd" id="1_bx00s"]
+[ext_resource type="Texture2D" uid="uid://duid0scrnkuxa" path="res://Assets/slime1_spritesheet.png" id="2_iwfje"]
+[ext_resource type="Texture2D" uid="uid://dus5sv5i7fkd5" path="res://Assets/slime_death_spritesheet.png" id="3_atwea"]
+[ext_resource type="Texture2D" uid="uid://cnjsmjd1slrss" path="res://Assets/Animation_gmtk026.png" id="4_fuhh2"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_op0xf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n3tpi"]
-atlas = ExtResource("2_op0xf")
+atlas = ExtResource("2_iwfje")
 region = Rect2(1, 1, 145, 145)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5ivo8"]
-atlas = ExtResource("2_op0xf")
+atlas = ExtResource("2_iwfje")
 region = Rect2(147, 1, 145, 145)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lx30c"]
-atlas = ExtResource("2_op0xf")
+atlas = ExtResource("2_iwfje")
 region = Rect2(1, 147, 145, 145)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0lvod"]
-atlas = ExtResource("2_op0xf")
+atlas = ExtResource("2_iwfje")
 region = Rect2(147, 147, 145, 145)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fs0bl"]
-atlas = ExtResource("3_n3tpi")
+atlas = ExtResource("3_atwea")
 region = Rect2(1, 1, 145, 145)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oh5jd"]
-atlas = ExtResource("3_n3tpi")
+atlas = ExtResource("3_atwea")
 region = Rect2(147, 1, 145, 145)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fw6wf"]
-atlas = ExtResource("3_n3tpi")
+atlas = ExtResource("3_atwea")
 region = Rect2(293, 1, 145, 145)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xb54h"]
-atlas = ExtResource("3_n3tpi")
+atlas = ExtResource("3_atwea")
 region = Rect2(1, 147, 145, 145)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mgbsd"]
-atlas = ExtResource("3_n3tpi")
+atlas = ExtResource("3_atwea")
 region = Rect2(147, 147, 145, 145)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dqi8y"]
-atlas = ExtResource("3_n3tpi")
+atlas = ExtResource("3_atwea")
 region = Rect2(293, 147, 145, 145)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3jarl"]
-atlas = ExtResource("3_n3tpi")
+atlas = ExtResource("3_atwea")
 region = Rect2(1, 293, 145, 145)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hn4x4"]
-atlas = ExtResource("3_n3tpi")
+atlas = ExtResource("3_atwea")
 region = Rect2(147, 293, 145, 145)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fw6wf"]
@@ -109,9 +109,12 @@ height = 0.12652588
 radius = 0.5136719
 
 [node name="Slime_1" type="CharacterBody3D" node_paths=PackedStringArray("anim") groups=["enemies"]]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
 collision_layer = 4
-script = ExtResource("1_n3tpi")
+script = ExtResource("1_bx00s")
 anim = NodePath("animSprite")
+SPEED = 6.0
+life_enemy = 1.0
 atack_range = 1.2
 
 [node name="nav_agent" type="NavigationAgent3D" parent="."]
@@ -125,7 +128,7 @@ debug_color = Color(0, 0.6862745, 0.60784316, 1)
 
 [node name="animSprite" type="AnimatedSprite3D" parent="."]
 transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)
-modulate = Color(0.73018277, 0.68409, 1, 1)
+modulate = Color(0.86921585, 0.7381633, 0, 1)
 billboard = 1
 shaded = true
 sprite_frames = SubResource("SpriteFrames_fw6wf")
@@ -135,11 +138,11 @@ autoplay = "default"
 transform = Transform3D(0.45, 0, 0, 0, -1.9670125e-08, -0.45, 0, 0.45, -1.9670125e-08, 0, -0.33, 0.15)
 modulate = Color(1, 1, 1, 0.5019608)
 shaded = true
-texture = ExtResource("5_lx30c")
+texture = ExtResource("4_fuhh2")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.23709154, 0)
-light_color = Color(0.8479191, 0.6463661, 1, 1)
+light_color = Color(0.87058824, 0.7372549, 0, 1)
 light_energy = 0.55
 omni_range = 0.45
 omni_attenuation = 0.5
