@@ -1,9 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://b46rsxkdcyehr"]
+[gd_scene load_steps=7 format=3 uid="uid://b46rsxkdcyehr"]
 
 [ext_resource type="Script" uid="uid://ccdhvauxtet5o" path="res://Scripts/pivo_spawner.gd" id="1_rn8xn"]
 [ext_resource type="PackedScene" uid="uid://cncvv1t8mmyyw" path="res://Prefabs/slime_1.tscn" id="2_e28x4"]
-[ext_resource type="PackedScene" uid="uid://cw10mhwbkmueq" path="res://Prefabs/slime_2.tscn" id="3_0k81q"]
-[ext_resource type="PackedScene" uid="uid://dysh16m4l70bx" path="res://Prefabs/slime_3.tscn" id="4_ijrpn"]
+[ext_resource type="PackedScene" uid="uid://d1ngqqhko2gf6" path="res://Prefabs/slime_2.tscn" id="3_0k81q"]
+[ext_resource type="PackedScene" uid="uid://bagpiuitn46fl" path="res://Prefabs/slime_3.tscn" id="4_ijrpn"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0k81q"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(0, 0, 0, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_e28x4"]
 
@@ -15,6 +21,7 @@ arraysDeEnemys = Array[PackedScene]([ExtResource("2_e28x4"), ExtResource("3_0k81
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Marker3D"]
+material_override = SubResource("StandardMaterial3D_0k81q")
 mesh = SubResource("SphereMesh_e28x4")
 
 [node name="Timer" type="Timer" parent="."]
