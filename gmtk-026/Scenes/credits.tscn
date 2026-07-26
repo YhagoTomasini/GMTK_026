@@ -1,12 +1,59 @@
+<<<<<<< Updated upstream
 [gd_scene load_steps=0 format=3 uid="uid://dgi7q88qgbjwr"]
+=======
+<<<<<<< HEAD
+[gd_scene load_steps=7 format=3 uid="uid://dgi7q88qgbjwr"]
+=======
+[gd_scene load_steps=0 format=3 uid="uid://dgi7q88qgbjwr"]
+>>>>>>> eabce26831daa9273735fb28da694616c089c619
+>>>>>>> Stashed changes
 
-[node name="Credits" type="Control"]
+[ext_resource type="Script" uid="uid://bmms32y8snbwf" path="res://Scripts/credits.gd" id="1_gryuy"]
+[ext_resource type="PackedScene" uid="uid://dr05yaivyuxep" path="res://Scenes/pause.tscn" id="2_ccovl"]
+[ext_resource type="Texture2D" uid="uid://dg2lvhnrjb53s" path="res://Assets/fundo1.png" id="2_uah1q"]
+[ext_resource type="Texture2D" uid="uid://4bgjjmmo0qf3" path="res://Assets/fundo2.png" id="3_7emq5"]
+[ext_resource type="Texture2D" uid="uid://dvgegqtm60gqi" path="res://Assets/fundo31.png" id="4_803yc"]
+[ext_resource type="Texture2D" uid="uid://bl286pfn0o5ow" path="res://Assets/fundo4.png" id="5_1wbrc"]
+
+[node name="Credits" type="Control" node_paths=PackedStringArray("scroll", "text_node")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_gryuy")
+scroll = NodePath("ScrollContainer")
+text_node = NodePath("ScrollContainer/MarginContainer/RichTextLabel")
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+
+[node name="fundo_1" type="Sprite2D" parent="Parallax2D"]
+position = Vector2(640, 360)
+texture = ExtResource("2_uah1q")
+
+[node name="Parallax2D2" type="Parallax2D" parent="."]
+scroll_offset = Vector2(0.2, 0.2)
+
+[node name="fundo_2" type="Sprite2D" parent="Parallax2D2"]
+position = Vector2(640, 320)
+texture = ExtResource("3_7emq5")
+
+[node name="Parallax2D3" type="Parallax2D" parent="."]
+scroll_offset = Vector2(0.5, 0.5)
+
+[node name="fundo_3" type="Sprite2D" parent="Parallax2D3"]
+modulate = Color(0.23989576, 0.19346532, 0.4197493, 1)
+position = Vector2(640, 320)
+texture = ExtResource("4_803yc")
+
+[node name="Parallax2D4" type="Parallax2D" parent="."]
+scroll_scale = Vector2(4, 4)
+scroll_offset = Vector2(16, 16)
+
+[node name="fundo_4" type="Sprite2D" parent="Parallax2D4"]
+position = Vector2(640, 320)
+texture = ExtResource("5_1wbrc")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 clip_contents = false
@@ -26,7 +73,36 @@ size_flags_vertical = 3
 
 [node name="RichTextLabel" type="RichTextLabel" parent="ScrollContainer/MarginContainer"]
 layout_mode = 2
-text = "[b]AS LONG AS THE FLAME STAYS LIT[/b]
+bbcode_enabled = true
+text = "
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[b]AS LONG AS THE FLAME STAYS LIT[/b]
 
 [b]Por:[/b]
 Artêmio Neto e Yhago Tomasini
@@ -70,6 +146,23 @@ _______________________________________
 ________________________________________
 
 [b]THE END![/b]
+
+
+
+
+
+
+
+
+
+
+
+
 "
 fit_content = true
 horizontal_alignment = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Pause" parent="CanvasLayer" node_paths=PackedStringArray("configs") instance=ExtResource("2_ccovl")]
+configs = NodePath(".")
