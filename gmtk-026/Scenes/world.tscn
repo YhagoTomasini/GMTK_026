@@ -29,7 +29,7 @@ fog_density = 0.04
 fog_sky_affect = 0.85
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_pbw6q"]
-vertices = PackedVector3Array(-69.52867, -0.79999995, -78.06641, -69.52867, -0.79999995, 40.933594, 69.47133, -0.79999995, 40.933594, 69.47133, -0.79999995, -78.06641)
+vertices = PackedVector3Array(-69.52867, -0.79999995, -81.025986, -69.52867, -0.79999995, 40.974014, 69.47133, -0.79999995, 40.974014, 69.47133, -0.79999995, -81.025986)
 polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
 cell_height = 0.1
 
