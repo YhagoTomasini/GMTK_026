@@ -463,6 +463,7 @@ use_collision = true
 size = Vector3(1, 3, 9.013645)
 
 [node name="HUD" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="SomConfig" parent="HUD" instance=ExtResource("8_0fj1v")]
 visible = false
