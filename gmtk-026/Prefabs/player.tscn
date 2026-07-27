@@ -273,7 +273,7 @@ visible = false
 billboard = 1
 shaded = true
 sprite_frames = SubResource("SpriteFrames_2xbkd")
-animation = &"cast_up"
+animation = &"cast_down"
 
 [node name="CoolDown_punch" type="Timer" parent="."]
 wait_time = 0.6
