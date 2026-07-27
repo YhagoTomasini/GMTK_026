@@ -125,7 +125,7 @@ func look_at_cursor():
 		$spells_marker.look_at(cursor_position_on_place,Vector3.UP,0)
 
 func punch():
-	if state == states.IDLE and punchCount < 2:
+	if state == states.IDLE and punchCooldown.is_stopped():
 		state = states.PUNCHING
 		
 		punchCount += 1
@@ -134,7 +134,7 @@ func punch():
 		fistsAnim.visible = true
 		fists.monitoring = true
 		
-		punchCooldown.start()
+		#punchCooldown.start()
 		
 		match facing:
 			faces.DOWN:
