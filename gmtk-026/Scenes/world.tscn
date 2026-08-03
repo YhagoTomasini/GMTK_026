@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://drnegny8nwbfn" path="res://Prefabs/main_cam.tscn" id="4_8j60k"]
 [ext_resource type="Texture2D" uid="uid://cnjsmjd1slrss" path="res://Assets/Animation_gmtk026.png" id="5_5ukr8"]
 [ext_resource type="PackedScene" uid="uid://cncvv1t8mmyyw" path="res://Prefabs/slime_1.tscn" id="5_5v1tr"]
-[ext_resource type="Script" uid="uid://cwxh86jtpvy6y" path="res://Scripts/shadow.gd" id="6_o06y3"]
+[ext_resource type="Script" path="res://Scripts/shadow.gd" id="6_o06y3"]
 [ext_resource type="PackedScene" uid="uid://b46rsxkdcyehr" path="res://Prefabs/pivo_spawner.tscn" id="7_o06y3"]
 [ext_resource type="PackedScene" uid="uid://dauhtd8q87fcf" path="res://Scenes/som_config.tscn" id="8_0fj1v"]
 [ext_resource type="PackedScene" uid="uid://dr05yaivyuxep" path="res://Scenes/pause.tscn" id="9_ikia7"]

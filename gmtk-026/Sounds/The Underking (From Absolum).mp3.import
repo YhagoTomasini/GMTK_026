@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bwxftyqgh4xoa"
+path="res://.godot/imported/The Underking (From Absolum).mp3-0e9538f5de12f172e6528dee83c173ff.mp3str"
+
+[deps]
+
+source_file="res://Sounds/The Underking (From Absolum).mp3"
+dest_files=["res://.godot/imported/The Underking (From Absolum).mp3-0e9538f5de12f172e6528dee83c173ff.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

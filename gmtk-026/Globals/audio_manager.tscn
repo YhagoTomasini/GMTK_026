@@ -1,9 +1,104 @@
-[gd_scene load_steps=3 format=3 uid="uid://gdrf128cxf61"]
+[gd_scene load_steps=21 format=3 uid="uid://gdrf128cxf61"]
 
 [ext_resource type="Script" uid="uid://djobtusqqcigy" path="res://Globals/audio_manager.gd" id="1_86yo6"]
 [ext_resource type="Script" uid="uid://cat0m044kwqah" path="res://Globals/SoundEffects.gd" id="2_838mi"]
+[ext_resource type="AudioStream" uid="uid://bwxftyqgh4xoa" path="res://Sounds/The Underking (From Absolum).mp3" id="3_3s57x"]
+[ext_resource type="AudioStream" uid="uid://dxu7pvu4ygipt" path="res://Sounds/raffa_o_bardo.mp3.mp3" id="4_qhhwe"]
+[ext_resource type="AudioStream" uid="uid://b7d03u0jpvefl" path="res://Sounds/Tap.mp3" id="5_jatf3"]
+[ext_resource type="AudioStream" uid="uid://wyt11w5inpc1" path="res://Sounds/hurt.mp3" id="6_lxs7p"]
+
+[sub_resource type="Resource" id="Resource_oi1wl"]
+script = ExtResource("2_838mi")
+limite = 1
+som = ExtResource("3_3s57x")
+bus = &"Music"
+metadata/_custom_type_script = "uid://cat0m044kwqah"
+
+[sub_resource type="Resource" id="Resource_fb0sx"]
+script = ExtResource("2_838mi")
+limite = 1
+tipo = 1
+som = ExtResource("4_qhhwe")
+bus = &"Music"
+metadata/_custom_type_script = "uid://cat0m044kwqah"
+
+[sub_resource type="Resource" id="Resource_r6l1c"]
+script = ExtResource("2_838mi")
+tipo = 2
+bus = &"Effects"
+metadata/_custom_type_script = "uid://cat0m044kwqah"
+
+[sub_resource type="Resource" id="Resource_0ab1g"]
+script = ExtResource("2_838mi")
+limite = 2
+tipo = 3
+som = ExtResource("5_jatf3")
+bus = &"Effects"
+metadata/_custom_type_script = "uid://cat0m044kwqah"
+
+[sub_resource type="Resource" id="Resource_yu1vx"]
+script = ExtResource("2_838mi")
+tipo = 4
+bus = &"Effects"
+metadata/_custom_type_script = "uid://cat0m044kwqah"
+
+[sub_resource type="Resource" id="Resource_uwodp"]
+script = ExtResource("2_838mi")
+tipo = 5
+bus = &"Effects"
+metadata/_custom_type_script = "uid://cat0m044kwqah"
+
+[sub_resource type="Resource" id="Resource_m02h0"]
+script = ExtResource("2_838mi")
+tipo = 6
+bus = &"Effects"
+metadata/_custom_type_script = "uid://cat0m044kwqah"
+
+[sub_resource type="Resource" id="Resource_fphjp"]
+script = ExtResource("2_838mi")
+limite = 2
+tipo = 7
+som = ExtResource("6_lxs7p")
+bus = &"Effects"
+metadata/_custom_type_script = "uid://cat0m044kwqah"
+
+[sub_resource type="Resource" id="Resource_xicdv"]
+script = ExtResource("2_838mi")
+tipo = 8
+bus = &"Effects"
+metadata/_custom_type_script = "uid://cat0m044kwqah"
+
+[sub_resource type="Resource" id="Resource_r42jt"]
+script = ExtResource("2_838mi")
+tipo = 9
+bus = &"Effects"
+metadata/_custom_type_script = "uid://cat0m044kwqah"
+
+[sub_resource type="Resource" id="Resource_g3ilf"]
+script = ExtResource("2_838mi")
+tipo = 10
+bus = &"Effects"
+metadata/_custom_type_script = "uid://cat0m044kwqah"
+
+[sub_resource type="Resource" id="Resource_jukmn"]
+script = ExtResource("2_838mi")
+tipo = 11
+bus = &"Effects"
+metadata/_custom_type_script = "uid://cat0m044kwqah"
+
+[sub_resource type="Resource" id="Resource_dsy6g"]
+script = ExtResource("2_838mi")
+tipo = 12
+bus = &"Effects"
+metadata/_custom_type_script = "uid://cat0m044kwqah"
+
+[sub_resource type="Resource" id="Resource_wevdh"]
+script = ExtResource("2_838mi")
+tipo = 13
+bus = &"Effects"
+metadata/_custom_type_script = "uid://cat0m044kwqah"
 
 [node name="AudioManager" type="Node2D"]
 process_mode = 3
 script = ExtResource("1_86yo6")
-sons = Array[ExtResource("2_838mi")]([null])
+sons = Array[ExtResource("2_838mi")]([SubResource("Resource_oi1wl"), SubResource("Resource_fb0sx"), SubResource("Resource_r6l1c"), SubResource("Resource_0ab1g"), SubResource("Resource_yu1vx"), SubResource("Resource_uwodp"), SubResource("Resource_m02h0"), SubResource("Resource_fphjp"), SubResource("Resource_xicdv"), SubResource("Resource_r42jt"), SubResource("Resource_g3ilf"), SubResource("Resource_jukmn"), SubResource("Resource_dsy6g"), SubResource("Resource_wevdh")])
