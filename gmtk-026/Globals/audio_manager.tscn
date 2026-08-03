@@ -1,7 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://gdrf128cxf61"]
+[gd_scene load_steps=3 format=3 uid="uid://gdrf128cxf61"]
 
 [ext_resource type="Script" uid="uid://djobtusqqcigy" path="res://Globals/audio_manager.gd" id="1_86yo6"]
+[ext_resource type="Script" uid="uid://cat0m044kwqah" path="res://Globals/SoundEffects.gd" id="2_838mi"]
 
 [node name="AudioManager" type="Node2D"]
 process_mode = 3
 script = ExtResource("1_86yo6")
+sons = Array[ExtResource("2_838mi")]([null])
