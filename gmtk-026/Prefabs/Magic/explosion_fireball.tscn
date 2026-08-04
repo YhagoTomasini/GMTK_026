@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cwtvihswvj3gd"]
+[gd_scene load_steps=10 format=3 uid="uid://cwtvihswvj3gd"]
 
 [ext_resource type="Script" uid="uid://dp1k1s67o478u" path="res://Scripts/explosion_fireball.gd" id="1_ckyal"]
 
@@ -33,7 +33,10 @@ scale_curve = SubResource("CurveTexture_uuiso")
 color_ramp = SubResource("GradientTexture1D_r08yy")
 
 [sub_resource type="BoxMesh" id="BoxMesh_if2nh"]
-size = Vector3(0.2, 0.2, 0.2)
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ckyal"]
+radius = 0.22832868
 
 [node name="explosion_fireball" type="Node3D"]
 script = ExtResource("1_ckyal")
@@ -46,5 +49,16 @@ lifetime = 0.5
 one_shot = true
 speed_scale = 0.5
 explosiveness = 0.8
+randomness = 0.06
 process_material = SubResource("ParticleProcessMaterial_3tatd")
 draw_pass_1 = SubResource("BoxMesh_if2nh")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0)
+shape = SubResource("SphereShape3D_ckyal")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

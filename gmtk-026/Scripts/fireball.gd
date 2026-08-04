@@ -2,7 +2,7 @@ extends Area3D
 
 @export var speed : float = -5
 @export var explosion_fire_scene : PackedScene
-@export var damage_fireball : float = 5
+#@export var damage_fireball : float = 5
 
 func _physics_process(delta: float) -> void:
 	var foward_direction = global_transform.basis.z.normalized()
@@ -18,6 +18,5 @@ func explosion_particles():
 	
 
 func _on_body_entered(body: Node3D) -> void:
-	body.takeDamage(global_position, damage_fireball)
 	explosion_particles()
 	queue_free()

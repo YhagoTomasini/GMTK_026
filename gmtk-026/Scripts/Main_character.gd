@@ -193,7 +193,7 @@ func magic():
 		var rand = randi_range(16, 20)
 		if rand == 20:
 			AudioManager.criar_aud(SoundEffect.TIPO_DE_SOM.SPELL_CAST)
-			await get_tree().create_timer(3).timeout
+			await get_tree().create_timer(3.3).timeout
 		
 		print("y", spells_marker.rotation.y)
 		Globals.temp_left -= fireball_cust

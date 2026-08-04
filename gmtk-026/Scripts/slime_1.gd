@@ -90,6 +90,7 @@ func target_in_range() -> void:
 
 func execute_attack() -> void:
 	state = states.ATTACKING
+	await get_tree().create_timer(0.3).timeout
 	hitbox_colision.disabled = false
 	await get_tree().create_timer(0.3).timeout
 	hitbox_colision.disabled = true
