@@ -66,6 +66,7 @@ script = ExtResource("2_838mi")
 limite = 3
 tipo = 6
 som = ExtResource("8_r6l1c")
+pitch_rand = 0.3
 bus = &"Effects"
 metadata/_custom_type_script = "uid://cat0m044kwqah"
 
