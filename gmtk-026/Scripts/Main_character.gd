@@ -55,6 +55,8 @@ func _physics_process(delta: float) -> void:
 	var direction  := Vector3(input_dir.x, 0, input_dir.y).normalized()
 	
 	if direction:
+		AudioManager.criar_aud(SoundEffect.TIPO_DE_SOM.P_MOVE)
+		
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
 		
@@ -131,6 +133,8 @@ func punch():
 		punchCount += 1
 		switchPunch *= -1
 		
+		AudioManager.criar_aud(SoundEffect.TIPO_DE_SOM.PUNCH)
+		
 		fistsAnim.visible = true
 		fists.monitoring = true
 		
@@ -178,13 +182,19 @@ func punch():
 		
 		if punchCount >= 3:
 			punchCooldown.wait_time = 1.2
-			punchCooldown.start()
+			#punchCooldown.start()
 			
 		state = states.IDLE
 	
 func magic():
 	if state == states.IDLE and spellCooldown.is_stopped():
 		state = states.CASTING
+		
+		var rand = randi_range(16, 20)
+		if rand == 20:
+			AudioManager.criar_aud(SoundEffect.TIPO_DE_SOM.SPELL_CAST)
+			await get_tree().create_timer(3).timeout
+		
 		print("y", spells_marker.rotation.y)
 		Globals.temp_left -= fireball_cust
 		
@@ -221,7 +231,10 @@ func _on_fists_area_body_entered(body: Node3D) -> void:
 
 func player_take_damage(dano:int):
 	hurtbox_colision.set_deferred("disabled", true)
+	
+	AudioManager.criar_aud(SoundEffect.TIPO_DE_SOM.P_HURT)
 	Globals.life_player -= dano
+	
 	print(Globals.life_player)
 	await get_tree().create_timer(1).timeout
 	if is_instance_valid(self):

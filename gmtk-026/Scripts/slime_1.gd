@@ -52,6 +52,8 @@ func update_target_location(target_location):
 	
 func takeDamage(pPosi : Vector3, damage : float) -> void:
 	life_enemy -= damage
+	AudioManager.criar_aud_localizado(global_position, SoundEffect.TIPO_DE_SOM.PUNCH_HIT)
+	
 	state = states.HURTING
 	anim.modulate = Color(2.5, 0.0, 0.0, 1.0)
 	knockback(pPosi)

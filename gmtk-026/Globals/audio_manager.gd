@@ -13,16 +13,16 @@ func _ready() -> void:
 	for sons : SoundEffect in sons:
 		registroSons[sons.tipo] = sons
 
-func criar_aud_localizado(local : Vector2, tipo : SoundEffect.TIPO_DE_SOM):
+func criar_aud_localizado(local : Vector3, tipo : SoundEffect.TIPO_DE_SOM):
 	if registroSons.has(tipo):
 		var som : SoundEffect = registroSons[tipo]
 		if som.tem_limite():
 			som.contar_aud(1)
-			var novo_aud : AudioStreamPlayer2D = AudioStreamPlayer2D.new()
+			var novo_aud : AudioStreamPlayer3D = AudioStreamPlayer3D.new()
 			add_child(novo_aud)
 			
 			novo_aud.bus = som.bus
-			novo_aud.position = local
+			novo_aud.global_position = local
 			novo_aud.stream = som.som
 			novo_aud.volume_db = som.volume
 			novo_aud.pitch_scale = som.pitch

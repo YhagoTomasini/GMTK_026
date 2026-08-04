@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://gdrf128cxf61"]
+[gd_scene load_steps=24 format=3 uid="uid://gdrf128cxf61"]
 
 [ext_resource type="Script" uid="uid://djobtusqqcigy" path="res://Globals/audio_manager.gd" id="1_86yo6"]
 [ext_resource type="Script" uid="uid://cat0m044kwqah" path="res://Globals/SoundEffects.gd" id="2_838mi"]
@@ -6,11 +6,15 @@
 [ext_resource type="AudioStream" uid="uid://dxu7pvu4ygipt" path="res://Sounds/raffa_o_bardo.mp3.mp3" id="4_qhhwe"]
 [ext_resource type="AudioStream" uid="uid://b7d03u0jpvefl" path="res://Sounds/Tap.mp3" id="5_jatf3"]
 [ext_resource type="AudioStream" uid="uid://wyt11w5inpc1" path="res://Sounds/hurt.mp3" id="6_lxs7p"]
+[ext_resource type="AudioStream" uid="uid://c6mhsxx3w50am" path="res://Sounds/elitebete.mp3" id="6_oi1wl"]
+[ext_resource type="AudioStream" uid="uid://bxtisyvrxredl" path="res://Sounds/pucnh.mp3" id="7_fb0sx"]
+[ext_resource type="AudioStream" uid="uid://3014c4ujdmdg" path="res://Sounds/hit.mp3" id="8_r6l1c"]
 
 [sub_resource type="Resource" id="Resource_oi1wl"]
 script = ExtResource("2_838mi")
 limite = 1
 som = ExtResource("3_3s57x")
+volume = -6.0
 bus = &"Music"
 metadata/_custom_type_script = "uid://cat0m044kwqah"
 
@@ -19,6 +23,7 @@ script = ExtResource("2_838mi")
 limite = 1
 tipo = 1
 som = ExtResource("4_qhhwe")
+volume = -6.0
 bus = &"Music"
 metadata/_custom_type_script = "uid://cat0m044kwqah"
 
@@ -30,27 +35,37 @@ metadata/_custom_type_script = "uid://cat0m044kwqah"
 
 [sub_resource type="Resource" id="Resource_0ab1g"]
 script = ExtResource("2_838mi")
-limite = 2
+limite = 1
 tipo = 3
 som = ExtResource("5_jatf3")
+pitch_rand = 0.3
 bus = &"Effects"
 metadata/_custom_type_script = "uid://cat0m044kwqah"
 
 [sub_resource type="Resource" id="Resource_yu1vx"]
 script = ExtResource("2_838mi")
+limite = 1
 tipo = 4
+som = ExtResource("6_oi1wl")
+volume = 20.0
+pitch_rand = 0.1
 bus = &"Effects"
 metadata/_custom_type_script = "uid://cat0m044kwqah"
 
 [sub_resource type="Resource" id="Resource_uwodp"]
 script = ExtResource("2_838mi")
+limite = 2
 tipo = 5
+som = ExtResource("7_fb0sx")
+pitch_rand = 0.3
 bus = &"Effects"
 metadata/_custom_type_script = "uid://cat0m044kwqah"
 
 [sub_resource type="Resource" id="Resource_m02h0"]
 script = ExtResource("2_838mi")
+limite = 3
 tipo = 6
+som = ExtResource("8_r6l1c")
 bus = &"Effects"
 metadata/_custom_type_script = "uid://cat0m044kwqah"
 
@@ -59,6 +74,7 @@ script = ExtResource("2_838mi")
 limite = 2
 tipo = 7
 som = ExtResource("6_lxs7p")
+pitch_rand = 0.3
 bus = &"Effects"
 metadata/_custom_type_script = "uid://cat0m044kwqah"
 
