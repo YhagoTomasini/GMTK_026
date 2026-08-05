@@ -1,62 +1,107 @@
 shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_back;
+render_mode blend_mix, depth_prepass_alpha;
 
-group_uniforms Shape;
-uniform sampler2D noise_texture : filter_linear_mipmap, repeat_enable;
-uniform int layers = 20;
-uniform float depth_scale : hint_range(0.01, 1) = 0.2;
-uniform float depth_strength : hint_range(0.0,1.0) = 0.4;
+uniform bool billboard = false;
 
-group_uniforms Detail;
-uniform sampler2D detail_noise_texture : filter_linear_mipmap, repeat_enable;
-uniform float shape_detail_mix_factor : hint_range(0.0,1.0) = 0.4;
-uniform vec2 detail_scale = vec2(4.0, 4.0);
+uniform sampler2D shape_texture;
+uniform sampler2D shape_atlas;
+uniform bool use_atlas = false;
 
-group_uniforms Colour;
-uniform vec3 highlight_color : source_color = vec3(0.576, 0.757, 0.424);
-uniform vec3 base_color : source_color = vec3(0.341, 0.569, 0.282);
+group_uniforms Colors;
+uniform sampler2D noise_texture;
+uniform sampler2D color_gradient;
+uniform float random_variation : hint_range(0.0, 1.0, 0.001) = 0.002;
 
-group_uniforms Colour.colour_variation;
-uniform float mix_amount : hint_range(0.0,1.0) = 0.0;
-uniform sampler2D colour_noise_texture : filter_linear_mipmap, repeat_enable;
+group_uniforms Wind;
+uniform sampler2D wind_texture;
+uniform vec2 wind_velocity;
 
+group_uniforms Transparency;
+uniform float alpha_cut_start : hint_range(0.0, 1.0, 0.05) = 0.1;
+uniform float alpha_cut_end : hint_range(0.0, 1.0, 0.05) = 0.9;
+uniform int alpha_mode : hint_enum("Smooth", "Dithered", "Cut") = 0;
+
+varying flat int id;
+varying vec3 world_pos;
+
+#include "util/dither.gdshaderinc"
+
+vec2 atlas_uv(vec2 uv, int index, int size){
+	int tile_count = size * size;
+	int i = index % tile_count;
+	float x = float(i % size);
+	float y = float(i / size);
+	vec2 tile_size = 1.0 / vec2(float(size));
+	return uv* tile_size + (vec2(x, y) * tile_size);
+}
+
+float randomf(int index, int seed){
+	float value = sin(float(index + seed)) * 0.5 + 0.5;
+	return value;
+}
+
+float wind_noise(){
+	float value = texture(wind_texture, (world_pos.xz*0.03) - (vec2(TIME * 0.01) * wind_velocity)).r;
+	return value;
+}
+
+vec3 wind(vec2 uv){
+	float wind_noise = wind_noise();
+	float wind_affect = pow(1.0 - uv.y, 2.0);
+	vec3 value = vec3(
+		wind_noise * (wind_velocity.x),
+		0.0,
+		wind_noise * (wind_velocity.y)) * 0.25;
+	value *= wind_affect;
+	return value;
+}
+
+void vertex() {
+	world_pos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
+	id = INSTANCE_ID;
+
+	if(billboard){
+		mat4 billboard_matrix = mat4(
+				MAIN_CAM_INV_VIEW_MATRIX[0],
+				MAIN_CAM_INV_VIEW_MATRIX[1],
+				MAIN_CAM_INV_VIEW_MATRIX[2],
+				MODEL_MATRIX[3]);
+		MODELVIEW_MATRIX = VIEW_MATRIX * billboard_matrix;
+
+		VERTEX += (VIEW_MATRIX * vec4(wind(UV), 0.0)).xyz;
+	} else {
+		VERTEX += wind(UV);
+	}
+	NORMAL = vec3(0.0,1.0,0.0);
+}
 
 void fragment() {
-	float tangent = dot(VIEW, TANGENT);
-	float binormal = dot(-VIEW, BINORMAL);
-	float normal = dot(VIEW, NORMAL);
-	
-	float inv_layers = 1.0 / float(layers);
-	
-	vec2 uv_offset_total = (vec2(tangent, binormal) / normal) * depth_scale * 0.05;
-	vec2 uv_step = uv_offset_total * inv_layers;
-	
-	vec2 current_uv = UV;
-	vec3 final_albedo = base_color;
-	
-	float base_threshold = depth_strength + 0.3;
-	float detail_weight = 1.0 - shape_detail_mix_factor;
-	
-	for (int i = 0; i < layers; i++) {
-		float depth_ratio = float(i) * inv_layers;
-		
-		float base_noise = texture(noise_texture, current_uv).x;
-		float detail_noise = texture(detail_noise_texture, current_uv * detail_scale).x;
-		
-		float combined_noise = mix(base_noise, detail_noise, detail_weight);
-		float threshold = base_threshold * (1.0 - depth_ratio);
-		
-		vec3 final_colour = mix(highlight_color, texture(colour_noise_texture, UV).rgb, mix_amount);
-		
-		if (combined_noise > threshold) {
-			final_albedo = mix(final_colour, base_color, depth_ratio);
-			break; 
-		}
-		
-		current_uv -= uv_step;
+	float shape_value = texture(shape_texture, UV).r;
+	if(use_atlas){
+		vec2 atlas_uv = atlas_uv(UV, id, 2);
+		shape_value = texture(shape_atlas, atlas_uv).r;
 	}
-	
-	ALBEDO = final_albedo;
-	ROUGHNESS = 0.9;
-	SPECULAR = 0.05;
+
+	float noise_value = texture(noise_texture, world_pos.xz * 0.1).r;
+	if(randomf(id,1) < random_variation) noise_value += 0.4;
+	vec4 color = texture(color_gradient, vec2(noise_value, 0.0));
+
+	ALBEDO = color.rgb;
+
+	float alpha = shape_value;
+	if(alpha_mode == 0){
+		ALPHA = alpha;
+	} else {
+		alpha = clamp((shape_value - alpha_cut_start) / (alpha_cut_end - alpha_cut_start), 0.0, 1.0);
+		if(alpha_mode == 1){
+			alpha = step(bayer4(FRAGCOORD.xy) + 0.01, alpha);
+		}
+		if(alpha < 0.1) discard;
+	}
+
+}
+
+void light(){
+	float ndotl = dot(LIGHT, NORMAL) * ATTENUATION;
+	DIFFUSE_LIGHT += ndotl;
 }
