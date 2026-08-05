@@ -9,7 +9,7 @@
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_iagey"]
 
 [resource]
-render_priority = 0
+render_priority = -1
 shader = ExtResource("1_410uu")
 shader_parameter/billboard = true
 shader_parameter/shape_texture = ExtResource("4_n6ev7")
@@ -19,7 +19,7 @@ shader_parameter/noise_texture = SubResource("NoiseTexture2D_iagey")
 shader_parameter/color_gradient = ExtResource("2_okqfg")
 shader_parameter/random_variation = 0.0
 shader_parameter/wind_texture = ExtResource("5_8d8u4")
-shader_parameter/wind_velocity = Vector2(4, -2)
+shader_parameter/wind_velocity = Vector2(2, -2)
 shader_parameter/alpha_cut_start = 0.40000000596048
 shader_parameter/alpha_cut_end = 0.60000000894072
 shader_parameter/alpha_mode = 1

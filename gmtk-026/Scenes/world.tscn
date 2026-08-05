@@ -47,10 +47,10 @@ albedo_color = Color(0, 0, 0, 1)
 size = Vector2(10, 10)
 
 [sub_resource type="QuadMesh" id="QuadMesh_hgpy0"]
-size = Vector2(0.6, 0.4)
+size = Vector2(0.8, 0.8)
 subdivide_width = 4
 subdivide_depth = 4
-center_offset = Vector3(0, 0.2, 0)
+center_offset = Vector3(0, 0.4, 0)
 
 [sub_resource type="MultiMesh" id="MultiMesh_ikia7"]
 transform_format = 1
@@ -510,8 +510,7 @@ visible = false
 mesh = SubResource("QuadMesh_hgpy0")
 
 [node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 0.874)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.42699623, 0.874)
 material_override = ExtResource("13_c5t2i")
 cast_shadow = 0
-lod_bias = 0.001
 multimesh = SubResource("MultiMesh_ikia7")
