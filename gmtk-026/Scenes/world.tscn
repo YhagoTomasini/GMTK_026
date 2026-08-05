@@ -1,12 +1,14 @@
-[gd_scene load_steps=19 format=3 uid="uid://cu7b3aajynyi1"]
+[gd_scene load_steps=22 format=3 uid="uid://cu7b3aajynyi1"]
 
 [ext_resource type="Script" uid="uid://c7ugqifkg1c4x" path="res://Scripts/main.gd" id="1_5ukr8"]
 [ext_resource type="PackedScene" uid="uid://d0tch211y343j" path="res://Prefabs/player.tscn" id="3_5a7ea"]
 [ext_resource type="Texture2D" uid="uid://cp8frou67yy1o" path="res://Assets/pattern_ground1.png" id="3_ikia7"]
 [ext_resource type="PackedScene" uid="uid://drnegny8nwbfn" path="res://Prefabs/main_cam.tscn" id="4_8j60k"]
+[ext_resource type="Shader" uid="uid://clagtawxbxvud" path="res://Shaders/grass.gdshader" id="4_c5t2i"]
 [ext_resource type="Texture2D" uid="uid://cnjsmjd1slrss" path="res://Assets/Animation_gmtk026.png" id="5_5ukr8"]
 [ext_resource type="PackedScene" uid="uid://cncvv1t8mmyyw" path="res://Prefabs/slime_1.tscn" id="5_5v1tr"]
-[ext_resource type="Script" path="res://Scripts/shadow.gd" id="6_o06y3"]
+[ext_resource type="Texture2D" uid="uid://dug05801f2lbf" path="res://Assets/tex_swirl_0002_MK.jpg" id="5_e0ngr"]
+[ext_resource type="Script" uid="uid://cwxh86jtpvy6y" path="res://Scripts/shadow.gd" id="6_o06y3"]
 [ext_resource type="PackedScene" uid="uid://b46rsxkdcyehr" path="res://Prefabs/pivo_spawner.tscn" id="7_o06y3"]
 [ext_resource type="PackedScene" uid="uid://dauhtd8q87fcf" path="res://Scenes/som_config.tscn" id="8_0fj1v"]
 [ext_resource type="PackedScene" uid="uid://dr05yaivyuxep" path="res://Scenes/pause.tscn" id="9_ikia7"]
@@ -39,6 +41,20 @@ albedo_texture = ExtResource("3_ikia7")
 uv1_scale = Vector3(0.5, 0.5, 0.5)
 uv1_triplanar = true
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kn0ld"]
+render_priority = 2
+shader = ExtResource("4_c5t2i")
+shader_parameter/noise_texture = ExtResource("5_e0ngr")
+shader_parameter/layers = 24
+shader_parameter/depth_scale = 0.10000000405148
+shader_parameter/depth_strength = 0.50000002375
+shader_parameter/detail_noise_texture = ExtResource("5_e0ngr")
+shader_parameter/shape_detail_mix_factor = 0.0
+shader_parameter/detail_scale = Vector2(64, 80)
+shader_parameter/highlight_color = Color(0.46, 0.3542, 0.4141533, 1)
+shader_parameter/base_color = Color(0.18, 0.18, 0.18, 1)
+shader_parameter/mix_amount = 0.0
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5ukr8"]
 albedo_color = Color(0.34117648, 0.27450982, 0.36862746, 1)
 
@@ -68,19 +84,21 @@ player = NodePath("../player")
 navigation_mesh = SubResource("NavigationMesh_pbw6q")
 
 [node name="chão" type="CSGCombiner3D" parent="NavigationRegion3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.033549786, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.364, 0, -0.214)
 material_override = SubResource("StandardMaterial3D_7yui6")
+material_overlay = SubResource("ShaderMaterial_kn0ld")
 use_collision = true
 
 [node name="CSGBox3D" type="CSGBox3D" parent="NavigationRegion3D/chão"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.562216, -1.5, -24.486206)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2184043, -1.5, -21.29541)
 material_override = SubResource("StandardMaterial3D_5ukr8")
 gi_mode = 2
 use_collision = true
-size = Vector3(53, 1, 41)
+size = Vector3(103.50403, 1, 69.05884)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="NavigationRegion3D/chão"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.437784, -1.5, -23.986206)
+visible = false
 material_override = SubResource("StandardMaterial3D_5ukr8")
 gi_mode = 2
 use_collision = true
@@ -88,6 +106,7 @@ size = Vector3(27, 1, 16)
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="NavigationRegion3D/chão"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.437784, -1.5, -12.486206)
+visible = false
 material_override = SubResource("StandardMaterial3D_5ukr8")
 gi_mode = 2
 use_collision = true
@@ -95,6 +114,7 @@ size = Vector3(13, 1, 7)
 
 [node name="CSGBox3D4" type="CSGBox3D" parent="NavigationRegion3D/chão"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.9377847, -1.5, 2.013794)
+visible = false
 material_override = SubResource("StandardMaterial3D_5ukr8")
 gi_mode = 2
 use_collision = true
@@ -102,6 +122,7 @@ size = Vector3(34, 1, 12)
 
 [node name="CSGBox3D5" type="CSGBox3D" parent="NavigationRegion3D/chão"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.43778467, -1.5, 10.513794)
+visible = false
 material_override = SubResource("StandardMaterial3D_5ukr8")
 gi_mode = 2
 use_collision = true
@@ -109,6 +130,7 @@ size = Vector3(19, 1, 5)
 
 [node name="CSGBox3D6" type="CSGBox3D" parent="NavigationRegion3D/chão"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.062216, -1.5, 1.513794)
+visible = false
 material_override = SubResource("StandardMaterial3D_5ukr8")
 gi_mode = 2
 use_collision = true
@@ -116,6 +138,7 @@ size = Vector3(20, 1, 11)
 
 [node name="CSGBox3D7" type="CSGBox3D" parent="NavigationRegion3D/chão"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.562214, -1.5, -18.486206)
+visible = false
 material_override = SubResource("StandardMaterial3D_5ukr8")
 gi_mode = 2
 use_collision = true
@@ -123,6 +146,7 @@ size = Vector3(5, 1, 29)
 
 [node name="CSGBox3D8" type="CSGBox3D" parent="NavigationRegion3D/chão"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.062214, -1.5, -25.986206)
+visible = false
 material_override = SubResource("StandardMaterial3D_5ukr8")
 gi_mode = 2
 use_collision = true
@@ -130,6 +154,7 @@ size = Vector3(14, 1, 14)
 
 [node name="CSGBox3D9" type="CSGBox3D" parent="NavigationRegion3D/chão"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.562214, -1.5, -49.986206)
+visible = false
 material_override = SubResource("StandardMaterial3D_5ukr8")
 gi_mode = 2
 use_collision = true
@@ -137,6 +162,7 @@ size = Vector3(19, 1, 10)
 
 [node name="CSGBox3D10" type="CSGBox3D" parent="NavigationRegion3D/chão"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.9377866, -1.5, -46.986206)
+visible = false
 material_override = SubResource("StandardMaterial3D_5ukr8")
 gi_mode = 2
 use_collision = true
@@ -144,13 +170,14 @@ size = Vector3(20, 1, 4)
 
 [node name="CSGBox3D11" type="CSGBox3D" parent="NavigationRegion3D/chão"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.937786, -1.5, -6.486206)
+visible = false
 material_override = SubResource("StandardMaterial3D_5ukr8")
 gi_mode = 2
 use_collision = true
 size = Vector3(8, 1, 5)
 
 [node name="margem_escura" type="CSGCombiner3D" parent="NavigationRegion3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.033549786, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.034, 0.5, 0)
 material_override = SubResource("StandardMaterial3D_0fj1v")
 use_collision = true
 

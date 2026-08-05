@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://6nsl2cw5ki82" path="res://Scripts/fire_timer.gd" id="1_chfh5"]
 [ext_resource type="Texture2D" uid="uid://b24bxh157bvt1" path="res://Assets/button_bg.png" id="2_3jfbl"]
-[ext_resource type="Shader" uid="uid://c00x80ixcgvbj" path="res://Resources/lampBar.gdshader" id="3_3j5vs"]
+[ext_resource type="Shader" uid="uid://c00x80ixcgvbj" path="res://Shaders/lampBar.gdshader" id="3_3j5vs"]
 [ext_resource type="Texture2D" uid="uid://dug05801f2lbf" path="res://Assets/tex_swirl_0002_MK.jpg" id="4_rhayu"]
-[ext_resource type="Shader" uid="uid://btq0n4085n01r" path="res://Resources/lifeBar.gdshader" id="5_3j5vs"]
+[ext_resource type="Shader" uid="uid://btq0n4085n01r" path="res://Shaders/lifeBar.gdshader" id="5_3j5vs"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gyfy3"]
 shader = ExtResource("3_3j5vs")
