@@ -7,8 +7,8 @@
 [sub_resource type="SphereShape3D" id="SphereShape3D_op0xf"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_n3tpi"]
-height = 0.12652588
-radius = 0.64746094
+height = 1.0
+radius = 1.5
 
 [node name="Slime_1" type="CharacterBody3D" node_paths=PackedStringArray("anim") groups=["enemies"]]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
@@ -17,7 +17,7 @@ script = ExtResource("1_bx00s")
 anim = NodePath("animSprite")
 SPEED = 6.0
 life_enemy = 1.0
-atack_range = 1.2
+atack_range = 0.6
 
 [node name="nav_agent" type="NavigationAgent3D" parent="."]
 path_height_offset = 0.1

@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dug05801f2lbf" path="res://Assets/tex_swirl_0002_MK.jpg" id="5_8d8u4"]
 
 [resource]
-render_priority = -1
+render_priority = -2
 shader = ExtResource("1_410uu")
 shader_parameter/billboard = true
 shader_parameter/shape_texture = ExtResource("4_n6ev7")
@@ -17,7 +17,7 @@ shader_parameter/noise_texture = ExtResource("5_8d8u4")
 shader_parameter/color_gradient = ExtResource("2_okqfg")
 shader_parameter/random_variation = 0.3330000158175
 shader_parameter/wind_texture = ExtResource("5_8d8u4")
-shader_parameter/wind_velocity = Vector2(3, -3)
+shader_parameter/wind_velocity = Vector2(1, -1)
 shader_parameter/alpha_cut_start = 0.40000000596048
 shader_parameter/alpha_cut_end = 0.60000000894072
 shader_parameter/alpha_mode = 1

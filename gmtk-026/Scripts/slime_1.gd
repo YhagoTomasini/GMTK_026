@@ -11,7 +11,7 @@ extends CharacterBody3D
 @export var time_gain : float = 5 * 4
 @export var player_life_regain : float = 1
 
-@onready var hit_box: Area3D = $hit_box
+#@onready var hit_box: Area3D = $hit_box
 @onready var hitbox_colision: CollisionShape3D = $hit_box/hitbox_colision
 
 enum states {
@@ -23,6 +23,7 @@ var state := states.FOLLOWING
 
 func _ready() -> void:
 	anim.frame = randi_range(0, 3)
+	hitbox_colision.disabled = true
 	
 func _physics_process(_delta: float) -> void:
 	if state != states.FOLLOWING:
@@ -47,8 +48,9 @@ func _physics_process(_delta: float) -> void:
 	target_in_range()
 
 func update_target_location(target_location):
-	if state == states.FOLLOWING:
-		nav_agent.target_position = target_location
+	if state != states.FOLLOWING:
+		return
+	nav_agent.target_position = target_location
 	
 func takeDamage(pPosi : Vector3, damage : float) -> void:
 	life_enemy -= damage
@@ -57,22 +59,23 @@ func takeDamage(pPosi : Vector3, damage : float) -> void:
 	state = states.HURTING
 	anim.modulate = Color(2.5, 0.0, 0.0, 1.0)
 	knockback(pPosi)
-	if life_enemy > 0:
-		anim.play("hurting")
-		
-		await anim.animation_finished
-# retirando o following o bixo n para de correr atrás de você entretanto ele n te persegue depois de morto
-		state = states.FOLLOWING
-		anim.modulate = Color(2.5, 2.5, 2.5, 1.0)
-		anim.play("default")
-		
-	else:
+	
+	if life_enemy <= 0:
 		collision_mask = 24
 		anim.play("dying")
 		await anim.animation_finished
 		Globals.temp_left += time_gain
 		Globals.regeneration()
 		queue_free()
+		
+	else:
+		anim.play("hurting")
+		
+		await anim.animation_finished
+
+		state = states.FOLLOWING
+		anim.modulate = Color(2.5, 2.5, 2.5, 1.0)
+		anim.play("default")
 
 func knockback(pPosi : Vector3):
 	var knockbackD = (global_position - pPosi).normalized()
@@ -89,12 +92,15 @@ func target_in_range() -> void:
 		execute_attack()
 
 func execute_attack() -> void:
+	if state == states.HURTING:
+		return
+		
 	state = states.ATTACKING
 	await get_tree().create_timer(0.3).timeout
 	hitbox_colision.disabled = false
 	await get_tree().create_timer(0.3).timeout
 	hitbox_colision.disabled = true
-	await get_tree().create_timer(0.8).timeout
+	await get_tree().create_timer(0.3).timeout
 	state = states.FOLLOWING
 
 func _on_nav_agent_target_reached() -> void:
@@ -109,7 +115,7 @@ func _on_nav_agent_velocity_computed(safe_velocity: Vector3) -> void:
 
 
 func _on_hit_box_body_entered(body: Node3D) -> void:
-	print("teste")
+	#print("teste")
 	if body.is_in_group("player"):
 		print("batendo no player")
 		body.player_take_damage(damage_enemy)
