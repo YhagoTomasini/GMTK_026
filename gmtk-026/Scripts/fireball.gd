@@ -7,7 +7,7 @@ extends Area3D
 func _physics_process(delta: float) -> void:
 	var foward_direction = global_transform.basis.z.normalized()
 	global_translate(foward_direction * speed * delta)
-	await get_tree().create_timer(0.3).timeout
+	await get_tree().create_timer(1.0).timeout
 	explosion_particles()
 	queue_free()
 
