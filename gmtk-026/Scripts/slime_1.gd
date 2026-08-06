@@ -101,7 +101,8 @@ func execute_attack() -> void:
 	await get_tree().create_timer(0.3).timeout
 	hitbox_colision.disabled = true
 	await get_tree().create_timer(0.3).timeout
-	state = states.FOLLOWING
+	if state == states.ATTACKING:
+		state = states.FOLLOWING
 
 func _on_nav_agent_target_reached() -> void:
 	pass # Replace with function body.

@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://dauhtd8q87fcf"]
+[gd_scene load_steps=0 format=3 uid="uid://dauhtd8q87fcf"]
 
 [node name="SomConfig" type="Control"]
 process_mode = 3
