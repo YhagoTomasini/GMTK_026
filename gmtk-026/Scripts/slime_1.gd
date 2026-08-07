@@ -64,7 +64,7 @@ func takeDamage(pPosi : Vector3, damage : float) -> void:
 		collision_mask = 24
 		anim.play("dying")
 		await anim.animation_finished
-		Globals.temp_left += time_gain
+		Globals.fuel_lamp(time_gain)
 		Globals.regeneration()
 		queue_free()
 		

@@ -25,7 +25,12 @@ func _process(_delta: float) -> void:
 
 func text_atualization():
 	text_life.text = str(Globals.life_player)
-	text_number.text = str(Globals.temp_left)
+	text_number.text = str(int(Globals.temp_left))
 
 func _on_timer_timeout() -> void:
-	Globals.temp_left -= 1
+	if Globals.burning:
+		text_number.modulate = Color(0.925, 0.373, 0.239, 1.0)
+		Globals.temp_left -= 1
+	
+	else:
+		text_number.modulate = Color(0.373, 0.702, 0.341, 1.0)
