@@ -233,13 +233,13 @@ func player_take_damage(dano:int):
 	hurtbox_colision.set_deferred("disabled", true)
 	
 	AudioManager.criar_aud(SoundEffect.TIPO_DE_SOM.P_HURT)
-	Globals.life_player -= dano
+	Globals.temp_left -= dano
 	
-	print(Globals.life_player)
+	print(Globals.temp_left)
 	await get_tree().create_timer(1).timeout
 	if is_instance_valid(self):
 		hurtbox_colision.set_deferred("disabled", false)
-	if Globals.life_player <= 0:
+	if Globals.temp_left <= 0:
 		morte()
 
 func _on_cool_down_punch_timeout() -> void:

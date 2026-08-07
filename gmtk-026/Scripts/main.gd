@@ -4,7 +4,7 @@ extends Node3D
 
 func _ready() -> void:
 	AudioManager.criar_aud(SoundEffect.TIPO_DE_SOM.TEMA1)
-	Globals.life_player = Globals.save_life_player
+	Globals.mana_player = Globals.save_mana_player
 	Globals.temp_left = Globals.save_temp_left
 
 func _physics_process(_delta: float) -> void:

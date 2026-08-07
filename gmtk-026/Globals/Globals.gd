@@ -2,10 +2,10 @@ extends Node
 
 var playerRotation : Vector3
 var temp_left = 666
-var life_player: int = 20
+var mana_player = 20
 
 var save_temp_left = 666
-var save_life_player = 20
+var save_mana_player = 20
 
 var burning : bool = true
 
@@ -20,5 +20,5 @@ func fuel_lamp(time_gain : float):
 	burning = true
 	
 func regeneration():
-	if life_player < 20:
-		life_player += 1
+	if mana_player < 20:
+		mana_player += 1

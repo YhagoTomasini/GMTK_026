@@ -19,12 +19,12 @@ func _process(_delta: float) -> void:
 		Globals.temp_left += 2
 	
 	
-	life_bar.scale.x = (Globals.life_player / 20.0)*190.0
+	#life_bar.scale.x = (Globals.mana_player / 20.0)*190.0
 	var shader = flame_bar.material as ShaderMaterial
 	shader.set_shader_parameter("size", 2.25 - (Globals.temp_left / 666.0))
 
 func text_atualization():
-	text_life.text = str(Globals.life_player)
+	#text_life.text = str(Globals.mana_player)
 	text_number.text = str(int(Globals.temp_left))
 
 func _on_timer_timeout() -> void:
